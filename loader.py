@@ -1,6 +1,12 @@
 from BeautifulSoup import BeautifulSoup
 import urllib2
+from sqlalchemy import select
+from sqlalchemy.sql import and_
+import datetime
+import re
 
+from models import bills,bill_revs
+from models import engine
 
 class Bill(object):
     pass
@@ -44,5 +50,40 @@ def load_page():
             
     
 def load_data():
+    print 'loading'
     pg = load_page()
-    
+    conn = engine.connect()
+    print 'here we go'
+    for i in pg:
+        check = select([bills.c.id],bills.c.name == i.name)
+        result = conn.execute(check)
+        res = result.fetchone()
+        if not res:
+            bill = bills.insert().values(name=i.name,long_name=i.long_name)
+            result = conn.execute(bill)
+            pkey = result.inserted_primary_key[0]
+        else:
+            pkey = res['id']
+        
+        check = select([bill_revs],and_(
+            bill_revs.c.bill_id == int(pkey),
+            bill_revs.c.year == int(i.year)))
+  
+
+        key = [k for k in dir(i) if not re.match('^__',k)]
+        val = [getattr(i,k) for k in key]
+        data = dict(zip(key,val))
+        data['bill_id'] = pkey
+        
+        if 'date_presented' in key:
+            data['date_presented'] = datetime.datetime.strptime(i.date_presented,'%d/%m/%Y').date()
+
+        result = conn.execute(check)
+        if not result.fetchone():
+            revision = bill_revs.insert().values(**data)
+        else:
+            revision = bill_revs.update().\
+                where(and_(bill_revs.c.year == i.year,bill_revs.c.bill_id == pkey)).\
+                values(**data)
+                
+        result = conn.execute(revision)
