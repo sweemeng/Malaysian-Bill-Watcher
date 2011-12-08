@@ -17,6 +17,11 @@ def load_page():
         td = i.findAll('td')
         text = [t.text for t in td[:3]]
         result = zip(key[:3],text)
+        a_link = td[0].find('a')
+        t_url = a_link['onclick']
+        t_url = t_url.split('(')[1]
+        url = t_url.split(',')[0].replace('\'','')
+        result.append(('url',url))
         status = td[3].find('div',{'class':'parent'})
         if status:
             result.append((key[3],status.text))
