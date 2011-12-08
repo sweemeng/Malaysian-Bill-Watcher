@@ -11,7 +11,7 @@
 <body>
     <div class="container_12">
         <div class="grid_12 header">
-            <h1>Header</h1>
+            <h1>Malaysian Bill Watcher</h1>
         </div>
         <div class="clear"></div>
         <div class="grid_3">
