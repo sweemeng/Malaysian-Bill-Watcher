@@ -11,7 +11,7 @@ def load_page():
     soup = BeautifulSoup(page)
     table = soup.find('table',{'id':'mytable'})
     tr = table.find('tr')
-    key = [k.text for k in tr.findAll('th')]
+    key = ['name','year','long_name','status']
     siblings = tr.findNextSiblings('tr')
     for i in siblings:
         td = i.findAll('td')
@@ -26,9 +26,14 @@ def load_page():
         if status:
             result.append((key[3],status.text))
             in_table = td[3].find('table')
+            translation = {
+                'Dibentang Oleh':'read_by',
+                'Disokong Oleh':'supported_by',
+                'Dibentang Pada':'date_presented'
+                }
             for j in in_table.findAll('tr'):
                 i_td = j.findAll('td')
-                tpl = (i_td[0].text,i_td[2].text)
+                tpl = (translation[i_td[0].text],i_td[2].text)
                 result.append(tpl)
         else:
             t = td[3].text.splitlines()
@@ -37,4 +42,7 @@ def load_page():
         tmp = [setattr(b,r[0],r[1]) for r in result]
         yield b
             
+    
+def load_data():
+    pg = load_page()
     
