@@ -7,7 +7,7 @@ class Bill(object):
     
     
 def load_page():
-    page = urllib2.urlopen('http://www.parlimen.gov.my/index.php?modload=document&uweb=dr&doc=bills')
+    page = urllib2.urlopen('http://www.parlimen.gov.my/index.php?modload=document&uweb=dr&doc=bills&lang=en#')
     soup = BeautifulSoup(page)
     table = soup.find('table',{'id':'mytable'})
     tr = table.find('tr')
