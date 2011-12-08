@@ -17,10 +17,11 @@
         <div class="grid_3">
             <p>Code: {{bill.name}}</p>
             <p>Name: {{bill.long_name}}</p>
-            <p>Revision: {{revision.year}}</p>
+            <p>Revision: {{revision[0].year}}</p>
+            <p>Status: {{revision[0].status}}</p>
         </div>
         <div class="grid_9">
-            <iframe src="{{revision.url}}"></iframe>
+            <iframe width="100%" height="100%" src="{{revision[0].url}}"></iframe>
         </div>
     </div>
 </body>

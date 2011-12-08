@@ -15,7 +15,7 @@ def detail(id):
         order_by(bill_revs.c.year.desc())
     
     result = conn.execute(rev)
-    revision = result.fetchone()
+    revision = result.fetchall()
     return dict(bill=bill,revision=revision)
     
     
