@@ -1,4 +1,4 @@
-from bottle import route,view
+from bottle import route,view,static_file
 from models import bills,bill_revs
 from models import engine
 from sqlalchemy import select
@@ -19,3 +19,6 @@ def detail(id):
     return dict(bill=bill,revision=revision)
     
     
+@route('/css/<filename>')
+def server_css(filename):
+    return static_file(filename,root='./css/')
