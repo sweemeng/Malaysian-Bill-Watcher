@@ -21,7 +21,7 @@ def detail(id):
 @route('/')
 @view('list')
 def list_all():
-    bl = select([bills])
+    bl = select([bills,bill_revs],bills.c.id==bill_revs.c.bill_id)
     conn = engine.connect()
     result = conn.execute(bl)
     bill = result.fetchall()

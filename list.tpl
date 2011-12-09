@@ -21,7 +21,9 @@
         <div class="grid_9">
             %for i in bill:
                 <div class="bill_item">
-                <p><a href="/detail/{{i.id}}/">{{i.long_name}}</a></p>
+                <h5><a href="/detail/{{i.bill_id}}/">{{i.long_name}}</a></h5>
+                Revision: {{i.year}}
+                <br>Status  : {{i.status}}</br>
                 </div>
             %end
         </div>
