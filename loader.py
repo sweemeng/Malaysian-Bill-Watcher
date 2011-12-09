@@ -92,5 +92,5 @@ def load_data():
                 
         result = conn.execute(revision)
         message = 'Bills Updated: %s, year %s %s'
-        url = '/%d/' % (pkey)
+        url = '/detail/%d/' % (pkey)
         print message % (i.long_name, i.year,URL+url)
