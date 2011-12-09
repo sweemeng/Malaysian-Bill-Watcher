@@ -4,9 +4,14 @@ from sqlalchemy import select
 from sqlalchemy.sql import and_
 import datetime
 import re
+from bottle import yieldroute
+from pages import detail
 
 from models import bills,bill_revs
 from models import engine
+
+URL = 'http://localhost:8080'
+
 
 class Bill(object):
     pass
@@ -87,3 +92,6 @@ def load_data():
                 values(**data)
                 
         result = conn.execute(revision)
+        message = 'Bills Updated: %s, year %s %s'
+        url = yieldroute(detail(pkey))
+        print message % (i.long_name, i.year,URL+url)
