@@ -94,3 +94,7 @@ def load_data():
         message = 'Bills Updated: %s, year %s %s'
         url = '/detail/%d/' % (pkey)
         print message % (i.long_name, i.year,URL+url)
+
+
+if __name__ == '__main__':
+    loader()
