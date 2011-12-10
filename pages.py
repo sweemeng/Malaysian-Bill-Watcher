@@ -18,10 +18,17 @@ def detail(id):
     revision = result.fetchall()
     return dict(bill=bill,revision=revision)
 
-@route('/')
+@route('/<page_no>/')
 @view('list')
-def list_all():
-    bl = select([bills,bill_revs],bills.c.id==bill_revs.c.bill_id)
+def list_all(page_no):
+    
+    first = (page_no - 1)  *  5 + 1
+    last = 5 * page_no
+    bl = select([bills,bill_revs],and_(
+        bills.c.id==bill_revs.c.bill_id,
+        bills.c.id>=first,bills.c.id<=last
+        )
+    )
     conn = engine.connect()
     result = conn.execute(bl)
     bill = result.fetchall()
