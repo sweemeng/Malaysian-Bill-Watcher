@@ -1,0 +1,13 @@
+BeautifulSoup==3.2.0
+PyRSS2Gen==1.0.0
+SQLAlchemy==0.7.3
+bottle==0.11.dev
+gevent==0.13.6
+greenlet==0.3.1
+gunicorn==0.13.4
+httplib2==0.7.2
+ipython==0.11
+oauth2==1.5.210
+python-twitter==0.8.2
+simplejson==2.3.0
+wsgiref==0.1.2
