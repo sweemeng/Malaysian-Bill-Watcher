@@ -3,5 +3,5 @@ from pages import detail
 from pages import list_all
 from pages import server_css
 
-run(host='localhost',port=8080)
+run(server='gunicorn')
 
