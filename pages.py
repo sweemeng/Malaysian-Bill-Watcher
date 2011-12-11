@@ -45,7 +45,8 @@ def list_all():
    
     page_list = range(len(count) / 5)
     page_list = [i+1 for i in page_list]
-    return dict(bill=bill,page_list=page_list,page_no=page_no)
+    return dict(bill=bill,page_list=page_list,page_no=page_no,
+        next_page=page_no+1,prev_page=page_no-1)
     
 @route('/css/<filename>')
 def server_css(filename):

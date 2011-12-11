@@ -27,9 +27,18 @@
                 </div>
             %end
             <div class='pages' id='pages'>
+            %if page_no != page_list[0]:
+                <a href='/?page_no={{prev_page}}'>prev</a>
+            %end
             %for i in page_list:
-                
-                <a href='/?page_no={{i}}'>{{i}}</a>
+                %if i == page_no:
+                    {{i}}
+                %else:
+                    <a href='/?page_no={{i}}'>{{i}}</a>
+                %end
+            %end
+            %if page_no != page_list[-1]:
+                <a href='/?page_no={{next_page}}'>next</a>
             %end
             </div>
         </div>
