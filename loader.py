@@ -97,4 +97,4 @@ def load_data():
 
 
 if __name__ == '__main__':
-    loader()
+    load_data()
