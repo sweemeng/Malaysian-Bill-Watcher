@@ -18,12 +18,20 @@ Requirement
 ============
 
 requirement
+
 * Python
   - PyRSS2Gen
   - sqlalchemy
   - python-twitter
   - bottle.py
+
 * CSS
   - 960 gs
 
+Future
+======
 
+* add disqus(don't know how to fit in the layout)
+* add json api
+* twitter notification
+* make thing nice, i am suck when it come to design
