@@ -1,6 +1,6 @@
 from sqlalchemy import Table
 from sqlalchemy import Column
-from sqlalchemy import Integer,String,ForeignKey,Date,Sequence
+from sqlalchemy import Integer,String,ForeignKey,Date,Sequence,DateTime
 from sqlalchemy import MetaData
 from sqlalchemy import create_engine
 
@@ -23,7 +23,9 @@ bill_revs = Table('bill_revs',metadata,
     Column('read_by',String),
     Column('supported_by',String),
     Column('date_presented',Date),
-    Column('bill_id',None,ForeignKey('bills.id'))
+    Column('bill_id',None,ForeignKey('bills.id')),
+    Column('create_date',DateTime),
+    Column('update_date',DateTime)
     )
     
 metadata.create_all(engine)

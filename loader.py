@@ -1,7 +1,7 @@
 from BeautifulSoup import BeautifulSoup
 import urllib2
 from sqlalchemy import select
-from sqlalchemy.sql import and_
+from sqlalchemy.sql import and_,or_
 import datetime
 import re
 from pages import detail
@@ -59,6 +59,7 @@ def load_data():
     conn = engine.connect()
     print 'here we go'
     for i in pg:
+        message = ''
         check = select([bills.c.id],bills.c.name == i.name)
         result = conn.execute(check)
         res = result.fetchone()
@@ -83,17 +84,27 @@ def load_data():
             data['date_presented'] = datetime.datetime.strptime(i.date_presented,'%d/%m/%Y').date()
 
         result = conn.execute(check)
-        if not result.fetchone():
+        bill_rev = result.fetchone()
+        exec_insert = False
+        if not bill_rev:
+            data['create_date'] = datetime.datetime.now()
+            data['update_date'] = datetime.datetime.now()
             revision = bill_revs.insert().values(**data)
+            message = 'Bills Started: %s, year %s %s'
+            exec_insert = True
         else:
-            revision = bill_revs.update().\
-                where(and_(bill_revs.c.year == i.year,bill_revs.c.bill_id == pkey)).\
-                values(**data)
-                
-        result = conn.execute(revision)
-        message = 'Bills Updated: %s, year %s %s'
+            data['update_date'] = datetime.datetime.now()
+            if bill_rev['year'] != int(i.year) or bill_rev['status'] != i.status:
+                revision = bill_revs.update().\
+                    where(bill_revs.c.bill_id==pkey).\
+                    values(**data)
+                message = 'Bills Updated: %s, year %s %s'
+                exec_insert = True
+        if exec_insert:
+            result = conn.execute(revision)
         url = '/detail/%d/' % (pkey)
-        print message % (i.long_name, i.year,URL+url)
+        if message:
+            print message % (i.long_name, i.year,URL+url)
 
 
 if __name__ == '__main__':

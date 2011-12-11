@@ -1,6 +1,7 @@
 <html>
 <head>
     <title>Malaysian Bill Watcher</title>
+    <link rel="alternate" type="application/rss+xml" title="RSS feed" href="http://localhost:8080/feeds/" />
     <link rel="stylesheet" type="text/css" media="all" href="/css/reset.css" />
     <link rel="stylesheet" type="text/css" media="all" href="/css/text.css" />
     <link rel="stylesheet" type="text/css" media="all" href="/css/960.css" />

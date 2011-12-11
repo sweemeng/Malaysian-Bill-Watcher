@@ -1,9 +1,12 @@
-from bottle import route,view,static_file,request
+from bottle import route,view,static_file,request,response
 from models import bills,bill_revs
 from models import engine
 from sqlalchemy import select
 from sqlalchemy.sql import and_,func
+import PyRSS2Gen
 
+import datetime
+import cStringIO
 
 @route('/detail/<id>/')
 @view('detail')
@@ -34,7 +37,7 @@ def list_all():
         bills.c.id==bill_revs.c.bill_id,
         bills.c.id>=first,bills.c.id<=last
         )
-    )
+    ).order_by(bill_revs.c.update_date)
     conn = engine.connect()
     result = conn.execute(bl)
     bill = result.fetchall()
@@ -51,3 +54,35 @@ def list_all():
 @route('/css/<filename>')
 def server_css(filename):
     return static_file(filename,root='./css/')
+
+@route('/feeds/')
+def feed():
+    title = 'Malaysian Bill Watcher'
+    link = 'http://localhost:8080/'
+    description = '''
+        This is an app for Malaysian to see bill being passed by the Parliament
+    '''
+    lastBuildDate = datetime.datetime.utcnow()
+    
+    li = []
+    bls = select([bills,bill_revs],bills.c.id==bill_revs.c.bill_id).\
+        order_by('update_date')
+    conn = engine.connect()
+    result = conn.execute(bls)
+    bill = result.fetchall()    
+    for i in bill:
+        i_title = i['long_name']
+        i_description = "year:%s \nstatus: %s" % (i['year'],i['status'])
+        i_link = 'http://localhost:8080/%s/' % (i['bill_id'])
+        i_pubDate = i['update_date']
+        i_guid = PyRSS2Gen.Guid(i_link)
+        itm = PyRSS2Gen.RSSItem(title=i_title,description=i_description,
+            link=i_link,guid=i_guid,pubDate=i_pubDate)
+        li.append(itm)
+    rss = PyRSS2Gen.RSS2(title=title,link=link,description=description,
+        items = li)
+    output = cStringIO.StringIO()
+    rss.write_xml(output)
+    response.content_type = 'application/rss+xml'
+    return output.getvalue()
+
