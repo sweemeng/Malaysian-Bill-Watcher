@@ -58,8 +58,9 @@ def server_css(filename):
 
 @route('/feeds/')
 def feed():
+    prefix = '://'.join(request.urlparts[:2])
     title = 'Malaysian Bill Watcher'
-    link = settings.URL
+    link = prefix+'/'
     description = '''
         This is an app for Malaysian to see bill being passed by the Parliament
     '''
@@ -74,7 +75,7 @@ def feed():
     for i in bill:
         i_title = i['long_name']
         i_description = "year:%s \nstatus: %s" % (i['year'],i['status'])
-        i_link = settings.URL+'%s/' % (i['bill_id'])
+        i_link = prefix+'/detail/%s/' % (i['bill_id'])
         i_pubDate = i['update_date']
         i_guid = PyRSS2Gen.Guid(i_link)
         itm = PyRSS2Gen.RSSItem(title=i_title,description=i_description,
