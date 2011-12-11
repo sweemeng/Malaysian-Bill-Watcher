@@ -4,6 +4,7 @@ from models import engine
 from sqlalchemy import select
 from sqlalchemy.sql import and_,func
 import PyRSS2Gen
+import settings
 
 import datetime
 import cStringIO
@@ -31,8 +32,8 @@ def list_all():
         page_no = int(request.GET.get('page_no'))
     else:
         page_no = 1
-    first = (page_no - 1)  *  5 + 1
-    last = 5 * page_no
+    first = (page_no - 1)  *  settings.ITEM_PER_PAGE + 1
+    last = settings.ITEM_PER_PAGE * page_no
     bl = select([bills,bill_revs],and_(
         bills.c.id==bill_revs.c.bill_id,
         bills.c.id>=first,bills.c.id<=last
@@ -58,7 +59,7 @@ def server_css(filename):
 @route('/feeds/')
 def feed():
     title = 'Malaysian Bill Watcher'
-    link = 'http://localhost:8080/'
+    link = settings.URL
     description = '''
         This is an app for Malaysian to see bill being passed by the Parliament
     '''
@@ -73,7 +74,7 @@ def feed():
     for i in bill:
         i_title = i['long_name']
         i_description = "year:%s \nstatus: %s" % (i['year'],i['status'])
-        i_link = 'http://localhost:8080/%s/' % (i['bill_id'])
+        i_link = settings.URL+'%s/' % (i['bill_id'])
         i_pubDate = i['update_date']
         i_guid = PyRSS2Gen.Guid(i_link)
         itm = PyRSS2Gen.RSSItem(title=i_title,description=i_description,

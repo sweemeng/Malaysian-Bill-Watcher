@@ -8,8 +8,7 @@ from pages import detail
 
 from models import bills,bill_revs
 from models import engine
-
-URL = 'http://localhost:8080'
+import settings
 
 
 class Bill(object):
@@ -102,7 +101,7 @@ def load_data():
                 exec_insert = True
         if exec_insert:
             result = conn.execute(revision)
-        url = '/detail/%d/' % (pkey)
+        url = settings.URL + '/detail/%d/' % (pkey)
         if message:
             print message % (i.long_name, i.year,URL+url)
 
