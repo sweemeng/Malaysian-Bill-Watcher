@@ -26,6 +26,12 @@
                 <br>Status  : {{i.status}}</br>
                 </div>
             %end
+            <div class='pages' id='pages'>
+            %for i in page_list:
+                
+                <a href='/?page_no={{i}}'>{{i}}</a>
+            %end
+            </div>
         </div>
     </div>
 </body>

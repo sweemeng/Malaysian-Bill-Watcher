@@ -1,7 +1,9 @@
-from bottle import route,view,static_file
+from bottle import route,view,static_file,request
 from models import bills,bill_revs
 from models import engine
 from sqlalchemy import select
+from sqlalchemy.sql import and_,func
+
 
 @route('/detail/<id>/')
 @view('detail')
@@ -18,10 +20,14 @@ def detail(id):
     revision = result.fetchall()
     return dict(bill=bill,revision=revision)
 
-@route('/<page_no>/')
+@route('/')
 @view('list')
-def list_all(page_no):
-    
+def list_all():
+    print request.GET.keys()
+    if request.GET.get('page_no'):
+        page_no = int(request.GET.get('page_no'))
+    else:
+        page_no = 1
     first = (page_no - 1)  *  5 + 1
     last = 5 * page_no
     bl = select([bills,bill_revs],and_(
@@ -32,8 +38,14 @@ def list_all(page_no):
     conn = engine.connect()
     result = conn.execute(bl)
     bill = result.fetchall()
-    
-    return dict(bill=bill)
+
+    cnt = select([bills])
+    result = conn.execute(cnt)
+    count = result.fetchall()
+   
+    page_list = range(len(count) / 5)
+    page_list = [i+1 for i in page_list]
+    return dict(bill=bill,page_list=page_list,page_no=page_no)
     
 @route('/css/<filename>')
 def server_css(filename):
