@@ -20,6 +20,7 @@ Requirement
 requirement
 
 * Python
+
   - PyRSS2Gen
   - sqlalchemy
   - python-twitter
