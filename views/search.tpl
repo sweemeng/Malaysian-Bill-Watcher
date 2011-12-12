@@ -4,11 +4,7 @@
     <title>Malaysian Bill Watcher</title>
     <link rel="alternate" type="application/rss+xml" title="RSS feed" href="/feeds/" />
     <link rel="stylesheet" href="http://twitter.github.com/bootstrap/1.4.0/bootstrap.min.css">
-    <style type="text/css">
-        body{
-            padding-top: 60px;
-        }
-    </style>
+    %include css
 </head>
 <body>
 <div id='header'>
@@ -38,6 +34,7 @@
                     Revision: {{i['year']}}
                     <br>Status  : {{i['status']}}</br>
                     </div>
+                    <div class="separator"></div>
                 %end
             %end
         </div>
