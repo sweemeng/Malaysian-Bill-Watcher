@@ -3,12 +3,20 @@
 <head>
     <title>{{bill.long_name}}</title>
     <link rel="alternate" type="application/rss+xml" title="RSS feed" href="/feeds/" />
+   
     <link rel="stylesheet" href="http://twitter.github.com/bootstrap/1.4.0/bootstrap.min.css">
+    <script src='http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js' type="text/javascript"></script>
     <style type="text/css">
         body{
             padding-top: 60px;
+            height:100%
         }
     </style>
+    <script type="text/javascript">
+        $(function(){
+        });
+
+    </script>
 </head>
 <body>
     %include facebook_js
@@ -38,7 +46,10 @@
             </div>
         </div>
         <div class="content">
-            <iframe width="100%" height="100%" src="{{revision[0].url}}"></iframe>
+            <div class='row' width="100%" height="100%">
+                <iframe id='pdf' width="100%" height="100%" src="{{revision[0].url}}"></iframe>
+                </div>
+            </div>
         </div>
     </div>
 </body>
