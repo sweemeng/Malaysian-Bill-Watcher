@@ -15,6 +15,13 @@
             <h1>Malaysian Bill Watcher</h1>
         </div>
         <div class="clear"></div>
+        <div class="grid_8">
+       &nbsp; 
+        </div>
+        <div class="grid_4">
+        %include search_box
+        </div>
+        <div class="clear"></div>
         <div class="grid_3">
             <p>Code: {{bill.name}}</p>
             <p>Name: {{bill.long_name}}</p>

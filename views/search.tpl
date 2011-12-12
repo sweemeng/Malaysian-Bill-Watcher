@@ -28,27 +28,14 @@
         </div>
         <div class="grid_9">
             %for i in bill:
-                <div class="bill_item">
-                <h5><a href="/detail/{{i.bill_id}}/">{{i.long_name}}</a></h5>
-                Revision: {{i.year}}
-                <br>Status  : {{i.status}}</br>
-                </div>
-            %end
-            <div class='pages' id='pages'>
-            %if page_no != page_list[0]:
-                <a href='/?page_no={{prev_page}}'>prev</a>
-            %end
-            %for i in page_list:
-                %if i == page_no:
-                    {{i}}
-                %else:
-                    <a href='/?page_no={{i}}'>{{i}}</a>
+                %if i:
+                    <div class="bill_item">
+                    <h5><a href="/detail/{{i['bill_id']}}/">{{i['long_name']}}</a></h5>
+                    Revision: {{i['year']}}
+                    <br>Status  : {{i['status']}}</br>
+                    </div>
                 %end
             %end
-            %if page_no != page_list[-1]:
-                <a href='/?page_no={{next_page}}'>next</a>
-            %end
-            </div>
         </div>
     </div>
 </body>

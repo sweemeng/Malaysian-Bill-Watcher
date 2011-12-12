@@ -8,6 +8,7 @@ import settings
 
 import datetime
 import cStringIO
+import pyes
 
 @route('/detail/<id>/')
 @view('detail')
@@ -88,3 +89,20 @@ def feed():
     response.content_type = 'application/rss+xml'
     return output.getvalue()
 
+@route('/search/')
+@view('search')
+def search():
+    es = pyes.ES('127.0.0.1:9200') 
+    query_string = request.GET.get('query')
+    query = pyes.StringQuery(query_string)
+    result = es.search(query=query)
+    bill = []
+    for res in result['hits']['hits']:
+        source = res['_source']
+        temp = {}
+        for k in source.keys():
+            if k != 'document':
+                temp[k] = source[k]
+        bill.append(temp)
+    print bill
+    return dict(bill=bill)
