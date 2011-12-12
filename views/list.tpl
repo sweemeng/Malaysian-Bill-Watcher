@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
 <head>
     <title>Malaysian Bill Watcher</title>
@@ -38,20 +39,26 @@
                 <br>Status  : {{i.status}}</br>
                 </div>
             %end
-            <div class='pages' id='pages'>
+            <div class='pagination' id='pages'>
+                <ul>
             %if page_no != page_list[0]:
-                <a href='/?page_no={{prev_page}}'>prev</a>
+                    <li class="prev"><a href='/?page_no={{prev_page}}'>prev</a></li>
+            %else:
+                    <li class="prev disable"><a href="#">prev</a></li>
             %end
             %for i in page_list:
                 %if i == page_no:
-                    {{i}}
+                    <li class="active"><a href="#">{{i}}</a></li>
                 %else:
-                    <a href='/?page_no={{i}}'>{{i}}</a>
+                    <li><a href='/?page_no={{i}}'>{{i}}</a></li>
                 %end
             %end
             %if page_no != page_list[-1]:
-                <a href='/?page_no={{next_page}}'>next</a>
+                <li class="next"><a href='/?page_no={{next_page}}'>next</a></li>
+            %else:
+                <li class="next disable"><a href="#">next</a></li>
             %end
+            </ul>
         </div>
     </div>
         

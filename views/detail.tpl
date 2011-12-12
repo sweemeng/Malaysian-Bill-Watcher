@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
 <head>
     <title>{{bill.long_name}}</title>
