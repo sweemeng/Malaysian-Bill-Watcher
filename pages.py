@@ -53,9 +53,6 @@ def list_all():
     return dict(bill=bill,page_list=page_list,page_no=page_no,
         next_page=page_no+1,prev_page=page_no-1)
     
-@route('/css/<filename>')
-def server_css(filename):
-    return static_file(filename,root='./css/')
 
 @route('/feeds/')
 def feed():
