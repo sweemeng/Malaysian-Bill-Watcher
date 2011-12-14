@@ -109,6 +109,8 @@ def load_data():
                 exec_insert = True
         if exec_insert:
             result = conn.execute(revision)
+            
+        # stub of post to twitter
         url = settings.URL + '/detail/%d/' % (pkey)
         if message:
             print message % (i.long_name, i.year,URL+url)
