@@ -93,9 +93,14 @@ def load_data():
             exec_insert = True
         else:
             data['update_date'] = datetime.datetime.now()
-            if bill_rev['year'] != int(i.year) or bill_rev['status'] != i.status:
+            if bill_rev['status'] != i.status:
                 revision = bill_revs.update().\
-                    where(bill_revs.c.bill_id==pkey).\
+                    where(
+                        and_(
+                            bill_revs.c.bill_id==pkey,
+                            bill_revs.c.year==i.year
+                            )
+                        ).\
                     values(**data)
                 message = 'Bills Updated: %s, year %s %s'
                 exec_insert = True
