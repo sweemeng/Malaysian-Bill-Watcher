@@ -69,6 +69,7 @@ def load_data():
         else:
             pkey = res['id']
         
+        # We check existing bills, remember we save link for bother the bills and revision
         check = select([bill_revs],and_(
             bill_revs.c.bill_id == int(pkey),
             bill_revs.c.year == int(i.year)))
@@ -85,6 +86,7 @@ def load_data():
         result = conn.execute(check)
         bill_rev = result.fetchone()
         exec_insert = False
+
         if not bill_rev:
             data['create_date'] = datetime.datetime.now()
             data['update_date'] = datetime.datetime.now()
@@ -93,12 +95,13 @@ def load_data():
             exec_insert = True
         else:
             data['update_date'] = datetime.datetime.now()
+            # because the bills is always under debate. so for the same year, and the status change, 
             if bill_rev['status'] != i.status:
                 revision = bill_revs.update().\
                     where(
                         and_(
-                            bill_revs.c.bill_id==pkey,
-                            bill_revs.c.year==i.year
+                            bill_revs.c.bill_id == int(pkey),
+                            bill_revs.c.year == int(i.year)
                             )
                         ).\
                     values(**data)
