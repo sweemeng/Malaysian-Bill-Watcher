@@ -30,7 +30,7 @@ def get_keys(keys):
 
 def get_bill(row):
     bill = Bill()
-    for key in row.keys():
+    for key in row.keys()[1:]:
         if key != 'bills_id':
             new_key = get_keys(key)
             setattr(bill,new_key,row[key])

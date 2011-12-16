@@ -77,15 +77,16 @@ def feed():
     
     li = []
     bls = select([bills,bill_revs],bills.c.id==bill_revs.c.bill_id).\
-        order_by('update_date')
+        order_by('update_date').apply_labels()
     conn = engine.connect()
     result = conn.execute(bls)
     bill = result.fetchall()    
     for i in bill:
-        i_title = i['long_name']
-        i_description = "year:%s \nstatus: %s" % (i['year'],i['status'])
-        i_link = prefix+'/detail/%s/' % (i['bill_id'])
-        i_pubDate = i['update_date']
+        i_bill = utils.get_bill(i)
+        i_title = i_bill.long_name
+        i_description = "year:%s \nstatus: %s" % (i_bill.year,i_bill.status)
+        i_link = prefix+'/detail/%s/' % (i_bill.id)
+        i_pubDate = i_bill.update_date
         i_guid = PyRSS2Gen.Guid(i_link)
         itm = PyRSS2Gen.RSSItem(title=i_title,description=i_description,
             link=i_link,guid=i_guid,pubDate=i_pubDate)
