@@ -30,9 +30,9 @@
             %for i in bill:
                 %if i:
                     <div class="bill_item">
-                    <h5><a href="/detail/{{i['bill_id']}}/">{{i['long_name']}}</a></h5>
-                    Revision: {{i['year']}}
-                    <br>Status  : {{i['status']}}</br>
+                    <h5><a href="/detail/{{i.id}}/">{{i.long_name}}</a></h5>
+                    Revision: {{i.year}}
+                    <br>Status  : {{i.status}}</br>
                     </div>
                     <div class="separator"></div>
                 %end

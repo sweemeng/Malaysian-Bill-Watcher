@@ -109,13 +109,25 @@ def search():
     query_string = request.GET.get('query')
     query = pyes.StringQuery(query_string)
     result = es.search(query=query)
-    revisions = []
+    bill_list = []
     conn = engine.connect()
     for res in result['hits']['hits']:
         id = res['_id']
-        rev = select([bill_revs],bill_revs.c.id==id)
-        result = conn.execute(bl)
-        revision = result.fetchone()
-        revisions.append(revision)
-    print revisions
-    return dict(revision=revisions)
+        bls = select([bills,bill_revs],
+            and_(
+                bill_revs.c.id == id,
+                bill_revs.c.bill_id==bills.c.id
+            )
+        ).apply_labels()
+
+        conn = engine.connect()
+    
+        result = conn.execute(bls)
+        bl = result.fetchone()
+        if not bl:
+            print id
+            continue 
+        bill = utils.get_bill(bl) 
+        bill_list.append(bill)
+
+    return dict(bill=bill_list)

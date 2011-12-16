@@ -3,6 +3,7 @@ import os
 from models import bills,bill_revs,engine
 from sqlalchemy import select
 from downloader import download
+import utils
 
 def index():
     mapping = {
@@ -75,11 +76,7 @@ def get_indexable_bills():
     for item in data:
         temp = {}
         for key in item.keys()[1:]:
-            split_key = key.split('_')
-            if 'revs' in split_key:
-                new_key = '_'.join(split_key[2:])
-            else:
-                new_key = '_'.join(split_key[1:])
+            new_key = utils.get_keys(key)
             
             if new_key == 'url':
                 full_path = download(item[key])
