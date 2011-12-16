@@ -4,7 +4,10 @@ Malaysian Bill Watcher
 This is the source code for the Malaysian Bill Watcher. 
 
 The goal of this app is to notify bills that is being debated/recently passed bills
-in Malaysian Parliament. 
+in Malaysian Parliament.
+
+Currently list all revisions of bills, instead of bills only. 
+Make things a lot easier'
 
 Current feature
 
@@ -27,12 +30,11 @@ requirement
   - bottle.py
 
 * CSS
-  - 960 gs
+  - bootstrap from twitter
 
 Future
 ======
 
 * add disqus(don't know how to fit in the layout)
-* add json api
 * twitter notification
-* make thing nice, i am suck when it come to design
+
