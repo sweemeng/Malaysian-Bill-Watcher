@@ -56,7 +56,7 @@ def index():
     es.put_mapping('bill-type',
         {'bill-type':{
             '_id':{
-                'path':'bill_id'
+                'path':'id'
             },
             'properties':mapping
             }
@@ -68,22 +68,28 @@ def index():
         es.refresh('bill-index')
 
 def get_indexable_bills():
-    revision = select([bill_revs,bills],bill_revs.c.bill_id==bills.c.id)
+    revision = select([bill_revs,bills],bill_revs.c.bill_id==bills.c.id).apply_labels()
     conn = engine.connect()
     result = conn.execute(revision)
     data = result.fetchall()
     for item in data:
         temp = {}
-        for key in item.keys():
-            if key == 'id':
-                continue
-            elif key == 'url':
+        for key in item.keys()[1:]:
+            split_key = key.split('_')
+            if 'revs' in split_key:
+                new_key = '_'.join(split_key[2:])
+            else:
+                new_key = '_'.join(split_key[1:])
+            
+            if new_key == 'url':
                 full_path = download(item[key])
                 if not full_path:
                     continue
+
                 temp['document'] = pyes.file_to_attachment(full_path)
             else:
-                temp[key] = item[key]
+                temp[new_key] = item[key]
+
         yield temp
 
 if __name__ == '__main__':
