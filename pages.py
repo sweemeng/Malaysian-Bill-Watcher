@@ -10,19 +10,32 @@ import datetime
 import cStringIO
 import pyes
 
-@route('/detail/<id>/')
+import utils
+        
+
+@route('/detail/<rev_id>/')
 @view('detail')
-def detail(id):
-    bl = select([bills],bills.c.id == id)
+def detail(rev_id):
+    bls = select([bills,bill_revs],
+        and_(
+            bill_revs.c.id == rev_id,
+            bill_revs.c.bill_id==bills.c.id
+        )
+    ).apply_labels()
+
     conn = engine.connect()
     
-    result = conn.execute(bl)
-    bill = result.fetchone()
-    rev = select([bill_revs],bill_revs.c.bill_id == bill['id']).\
+    result = conn.execute(bls)
+    bl = result.fetchone()
+    
+    bill = utils.get_bill(bl) 
+
+    revs = select([bill_revs],bill_revs.c.bill_id == bill.bill_id).\
         order_by(bill_revs.c.year.desc())
     
-    result = conn.execute(rev)
+    result = conn.execute(revs)
     revision = result.fetchall()
+    
     return dict(bill=bill,revision=revision)
 
 @route('/')
@@ -35,21 +48,27 @@ def list_all():
         page_no = 1
     first = (page_no - 1)  *  settings.ITEM_PER_PAGE + 1
     last = settings.ITEM_PER_PAGE * page_no
+
     bl = select([bills,bill_revs],and_(
         bills.c.id==bill_revs.c.bill_id,
-        bills.c.id>=first,bills.c.id<=last
         )
-    ).order_by(bill_revs.c.update_date)
+    ).order_by(bill_revs.c.update_date).apply_labels()
+
+
     conn = engine.connect()
     result = conn.execute(bl)
-    bill = result.fetchall()
-
+    bill_list = result.fetchall()
+    
+    bill = []
     cnt = select([bills])
     result = conn.execute(cnt)
     count = result.fetchall()
    
     page_list = range(len(count) / 5)
     page_list = [i+1 for i in page_list]
+    
+    bill = bill[first:last]
+
     return dict(bill=bill,page_list=page_list,page_no=page_no,
         next_page=page_no+1,prev_page=page_no-1)
     
@@ -97,13 +116,13 @@ def search():
     query_string = request.GET.get('query')
     query = pyes.StringQuery(query_string)
     result = es.search(query=query)
-    bills = []
+    revisions = []
     conn = engine.connect()
     for res in result['hits']['hits']:
         id = res['_id']
-        bl = select(['bills'],bills.c.id==id)
+        rev = select([bill_revs],bill_revs.c.id==id)
         result = conn.execute(bl)
-        bill = result.fetchone()
-        bills.append(bill)
-    print bills
-    return dict(bill=bills)
+        revision = result.fetchone()
+        revisions.append(revision)
+    print revisions
+    return dict(revision=revisions)

@@ -9,10 +9,10 @@ def get_keys(keys):
         keys = '_'.join(split_keys[1:])
     return keys
 
-def get_bil(row):
+def get_bill(row):
     bill = Bill()
     for key in row.keys():
         if key != 'bills_id':
             new_key = get_keys(key)
-            setattr(bill,new_key,row[key]
+            setattr(bill,new_key,row[key])
     return bill

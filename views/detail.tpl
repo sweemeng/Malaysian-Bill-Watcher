@@ -37,8 +37,8 @@
                 <h5>Detail</h5>
                 <p>Code: {{bill.name}}</p>
                 <p>Name: {{bill.long_name}}</p>
-                <p>Revision: {{revision[0].year}}</p>
-                <p>Status: {{revision[0].status}}</p>
+                <p>Revision: {{bill.year}}</p>
+                <p>Status: {{bill.status}}</p>
                 <p>
                 %include twitter_js
                 %include facebook_div
@@ -47,7 +47,7 @@
         </div>
         <div class="content">
             <div class='row' width="100%" height="100%">
-                <iframe id='pdf' width="100%" height="100%" src="{{revision[0].url}}"></iframe>
+                <iframe id='pdf' width="100%" height="100%" src="{{bill.url}}"></iframe>
                 </div>
             </div>
         </div>
