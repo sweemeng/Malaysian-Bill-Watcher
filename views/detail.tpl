@@ -40,6 +40,10 @@
                 <p>Revision: {{bill.year}}</p>
                 <p>Status: {{bill.status}}</p>
                 <p>
+                <p>Previous revision:</p>
+                %for i in revision[1:]:
+                    <p><a href='/detail/{{i.id}}/'>i.year</a></p>
+                %end
                 %include twitter_js
                 %include facebook_div
                 </p>
