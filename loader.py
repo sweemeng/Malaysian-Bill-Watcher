@@ -113,7 +113,7 @@ def load_data():
         # stub of post to twitter
         url = settings.URL + '/detail/%d/' % (pkey)
         if message:
-            print message % (i.long_name, i.year,URL+url)
+            print message % (i.long_name, i.year,url)
 
 
 if __name__ == '__main__':

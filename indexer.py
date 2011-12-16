@@ -51,7 +51,7 @@ def index():
         }
     }
 
-    es = pyes.ES('192.168.0.104:9200')
+    es = pyes.ES('localhost:9200')
     es.create_index_if_missing('bill-index')
     es.put_mapping('bill-type',{'bill-type':{'properties':mapping}},['bill-index'])
     es.refresh('bill-index')
@@ -78,3 +78,6 @@ def get_indexable_bills():
             else:
                 temp[key] = item[key]
         yield temp
+
+if __name__ == '__main__':
+    index()
