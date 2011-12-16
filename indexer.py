@@ -53,7 +53,14 @@ def index():
 
     es = pyes.ES('localhost:9200')
     es.create_index_if_missing('bill-index')
-    es.put_mapping('bill-type',{'bill-type':{'properties':mapping}},['bill-index'])
+    es.put_mapping('bill-type',
+        {'bill-type':{
+            '_id':{
+                'path':'bill_id'
+            },
+            'properties':mapping
+            }
+        },['bill-index'])
     es.refresh('bill-index')
     get_row = get_indexable_bills()
     for i in get_row:

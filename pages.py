@@ -86,6 +86,10 @@ def feed():
     response.content_type = 'application/rss+xml'
     return output.getvalue()
 
+# TODO: use document bill
+# TODO: use revision year
+# TODO: make detail view to get GET for year
+# The goal is to output result for a specific revision
 @route('/search/')
 @view('search')
 def search():
@@ -93,13 +97,13 @@ def search():
     query_string = request.GET.get('query')
     query = pyes.StringQuery(query_string)
     result = es.search(query=query)
-    bill = []
+    bills = []
+    conn = engine.connect()
     for res in result['hits']['hits']:
-        source = res['_source']
-        temp = {}
-        for k in source.keys():
-            if k != 'document':
-                temp[k] = source[k]
-        bill.append(temp)
-    print bill
-    return dict(bill=bill)
+        id = res['_id']
+        bl = select(['bills'],bills.c.id==id)
+        result = conn.execute(bl)
+        bill = result.fetchone()
+        bills.append(bill)
+    print bills
+    return dict(bill=bills)
