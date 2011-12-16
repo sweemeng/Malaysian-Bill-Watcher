@@ -14,7 +14,7 @@ def download(url):
         file_name = url.split('/')[-1]
         data = urllib2.urlopen(url)
         full_path = os.path.join(file_path,file_name)
-        f = open(full_path,'w')
+        f = open(full_path,'wb')
         f.write(data.read())
         f.close()
         return full_path
