@@ -33,7 +33,7 @@
                <div class="span12">
                %for i in bill:
                    <div class="bill_item">
-                       <h5><a href="/detail/{{i.bill_id}}/">{{i.long_name}}</a></h5>
+                       <h5><a href="/detail/{{i.id}}/">{{i.long_name}}</a></h5>
                         Revision: {{i.year}}
                         <br>Status  : {{i.status}}</br>
                    </div>
@@ -41,20 +41,20 @@
                %end
                <div class='pagination' id='pages'>
                   <ul>
-                      %if page_no != page_list[0]:
-                          <li class="prev"><a href='/?page_no={{prev_page}}'>prev</a></li>
+                      %if pages.page_no != pages.page_list[0]:
+                          <li class="prev"><a href='/?page_no={{pages.prev_page}}'>prev</a></li>
                       %else:
                           <li class="prev disabled"><a href="#">prev</a></li>
                       %end
-                      %for i in page_list:
-                          %if i == page_no:
+                      %for i in pages.page_list:
+                          %if i == pages.page_no:
                               <li class="active"><a href="#">{{i}}</a></li>
                           %else:
                               <li><a href='/?page_no={{i}}'>{{i}}</a></li>
                           %end
                       %end
-                      %if page_no != page_list[-1]:
-                          <li class="next"><a href='/?page_no={{next_page}}'>next</a></li>
+                      %if pages.page_no != pages.page_list[-1]:
+                          <li class="next"><a href='/?page_no={{pages.next_page}}'>next</a></li>
                       %else:
                           <li class="next disabled"><a href="#">next</a></li>
                       %end

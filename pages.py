@@ -41,13 +41,7 @@ def detail(rev_id):
 @route('/')
 @view('list')
 def list_all():
-    print request.GET.keys()
-    if request.GET.get('page_no'):
-        page_no = int(request.GET.get('page_no'))
-    else:
-        page_no = 1
-    first = (page_no - 1)  *  settings.ITEM_PER_PAGE + 1
-    last = settings.ITEM_PER_PAGE * page_no
+    page_no = request.GET.get('page_no')
 
     bl = select([bills,bill_revs],and_(
         bills.c.id==bill_revs.c.bill_id,
@@ -60,17 +54,15 @@ def list_all():
     bill_list = result.fetchall()
     
     bill = []
-    cnt = select([bills])
-    result = conn.execute(cnt)
-    count = result.fetchall()
-   
-    page_list = range(len(count) / 5)
-    page_list = [i+1 for i in page_list]
-    
-    bill = bill[first:last]
 
-    return dict(bill=bill,page_list=page_list,page_no=page_no,
-        next_page=page_no+1,prev_page=page_no-1)
+    for item in bill_list:
+        bill.append(utils.get_bill(item))        
+
+    bill_total = len(bill_list)
+    pages = utils.Pagination(settings.ITEM_PER_PAGE,bill_total,page_no)
+    bill = bill[pages.first:pages.last]
+
+    return dict(bill=bill,pages=pages)
     
 
 @route('/feeds/')
