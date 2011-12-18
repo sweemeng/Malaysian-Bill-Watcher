@@ -98,10 +98,6 @@ def feed():
     response.content_type = 'application/rss+xml'
     return output.getvalue()
 
-# TODO: use document bill
-# TODO: use revision year
-# TODO: make detail view to get GET for year
-# The goal is to output result for a specific revision
 @route('/search/')
 @view('search')
 def search():
@@ -131,3 +127,12 @@ def search():
         bill_list.append(bill)
 
     return dict(bill=bill_list)
+
+
+@route('/js/<filename>')
+def js_view(filename):
+    return static_file(filename,root='js/')
+
+@route('/pdf/<filename>')
+def js_view(filename):
+    return static_file(filename,root='files/')

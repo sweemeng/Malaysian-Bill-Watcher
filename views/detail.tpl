@@ -6,6 +6,7 @@
    
     <link rel="stylesheet" href="http://twitter.github.com/bootstrap/1.4.0/bootstrap.min.css">
     <script src='http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js' type="text/javascript"></script>
+    <script src='/js/pdf.js' type='text/javascript'></script>
     <style type="text/css">
         body{
             padding-top: 60px;
@@ -13,9 +14,34 @@
         }
     </style>
     <script type="text/javascript">
-        $(function(){
+        var page_no = 1;
+        function viewer(page_no){
+            PDFJS.getPdf('/pdf/{{bill.url.split("/")[-1]}}',function (data){
+     	    var pdf = new PDFJS.PDFDoc(data);
+	
+	    var page = pdf.getPage(page_no);
+	    var scale = 1.5;
+	
+	    var canvas = document.getElementById("pdf_canvas");
+	    var context = canvas.getContext('2d');
+	    canvas.height = page.height * scale;
+	    canvas.width = page.width * scale;
+	//alert(pdf.numPages);
+	    page.startRendering(context);
         });
-
+        }
+        $(function(){
+             viewer(page_no);
+             $('#next').click(function(){
+                 page_no = page_no + 1;
+                 viewer(page_no);
+             });
+             $('#prev').click(function(){
+                 page_no = page_no - 1
+                 viewer(page_no);
+             });
+        });
+        PDFJS.workerSrc = '/js/pdf.js';
     </script>
 </head>
 <body>
@@ -50,10 +76,24 @@
             </div>
         </div>
         <div class="content">
-            <div class='row' width="100%" height="100%">
-                <iframe id='pdf' width="100%" height="100%" src="{{bill.url}}"></iframe>
-                </div>
-            </div>
+                <!--<iframe id='pdf' width="100%" height="100%" src="{{bill.url}}"></iframe>-->
+                 <div class="container">
+                     <div class="row">
+                        <div class="span12">
+                            <canvas id="pdf_canvas" style="border:1px solid black;"><div class="textLayer"></div></canvas>
+                        </div>
+                     </div>
+                     <div class="row">
+                        <div class="span12">
+                            <div class="pagination">
+                                <ul>
+                                    <li class="prev"><a class="prev" href="#">prev</a></li>
+                                    <li class="next"><a id="next" href="#">next</a></li>
+                                <ul>
+                            </div>
+                        </div>
+                     </div>
+                 </div>
         </div>
     </div>
 </body>
