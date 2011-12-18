@@ -12,6 +12,24 @@
             padding-top: 60px;
             height:100%
         }
+        .textLayer{
+            position:absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            width: 740px;
+        }
+	.textLayer > div {
+            color: transparent;
+            position: absolute;
+            line-height:1.3;
+            font-size: 16px
+        }
+        .canvas_container{
+            position:relative
+       
+        }
     </style>
     <script type="text/javascript">
         var page_no = 1;
@@ -20,6 +38,7 @@
      	    var pdf = new PDFJS.PDFDoc(data);
 	
 	    var page = pdf.getPage(page_no);
+            //console.log(page);
 	    var scale = 1.5;
 	
 	    var canvas = document.getElementById("pdf_canvas");
@@ -27,7 +46,7 @@
 	    canvas.height = page.height * scale;
 	    canvas.width = page.width * scale;
 	//alert(pdf.numPages);
-	    page.startRendering(context);
+	    page.startRendering(context,null,$('.textLayer')[0]);
         });
         }
         $(function(){
@@ -45,7 +64,7 @@
     </script>
 </head>
 <body>
-    %include facebook_js
+    <!--%include facebook_js-->
     <div class="topbar">
         <div class="topbar-inner">
             <div class="container-fluid">
@@ -70,8 +89,8 @@
                 %for i in revision[1:]:
                     <p><a href='/detail/{{i.id}}/'>i.year</a></p>
                 %end
-                %include twitter_js
-                %include facebook_div
+                <!--%include twitter_js-->
+                <!--%include facebook_div-->
                 </p>
             </div>
         </div>
@@ -79,8 +98,9 @@
                 <!--<iframe id='pdf' width="100%" height="100%" src="{{bill.url}}"></iframe>-->
                  <div class="container">
                      <div class="row">
-                        <div class="span12">
-                            <canvas id="pdf_canvas" style="border:1px solid black;"><div class="textLayer"></div></canvas>
+                        <div class="span12 canvas_container">
+                            <canvas id="pdf_canvas" style="border:1px solid black;"></canvas>
+                            <div class="textLayer"></div>
                         </div>
                      </div>
                      <div class="row">
