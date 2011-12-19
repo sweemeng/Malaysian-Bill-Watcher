@@ -13,34 +13,36 @@
             height:100%
         }
 		
-		iframe{
-		    margin:0;
-			padding:0;
-			height:100%;
-			width:100%;
-			border:none;
-		}
-		[ hidden ]{
-		    display:none;
-		}
+        iframe{
+	    margin:0;
+	    padding:0;
+	    height:100%;
+	    width:100%;
+	    border:none;
+	}
+	[ hidden ]{
+	    display:none;
+	}
         .textLayer{
             position:absolute;
             top: 0;
             bottom: 0;
             left: 0;
             right: 0;
-            
-			color: #000;
+	    color: #000;
+            border:1px solid black;
         }
-	    .textLayer > div {
+	.textLayer > div {
             color: transparent;
             position: absolute;
-            line-height:1.3;
+            line-height:1.5;
+            
             font-size: 16px
         }
         .canvas_container{
+            position:absolute;
             margin: auto;
-			display: block;
+	    display: block;
             height:100%;
         }
 		
@@ -112,13 +114,15 @@
 
                  <div class="container">
                      <div class="row" height="100%" width="100%">
-                        <div class="span12 canvas_container">
-						   <iframe id='pdf' src="/pdf/{{bill.url.split('/')[-1]}}"></iframe>
-                <!--        <canvas id="pdf_canvas" style="border:1px solid black;"></canvas>
-                            <div class="textLayer"></div> -->
+                        <div class="span12">
+			   <iframe id='pdf' src="/pdf/{{bill.url.split('/')[-1]}}"></iframe>
+       <!--                <div class='canvas_container'>
+                                <canvas id="pdf_canvas" style="border:1px solid black;"></canvas>
+                                <div class="textLayer"></div> 
+                            </div>-->
                         </div>
                      </div>
-                     <!--<div class="row">
+        <!--         <div class="row">
                         <div class="span12">
                             <div class="pagination">
                                 <ul>
