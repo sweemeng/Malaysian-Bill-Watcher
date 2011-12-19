@@ -12,22 +12,27 @@
             padding-top: 60px;
             height:100%
         }
+		[ hidden ]{
+		    display:none;
+		}
         .textLayer{
             position:absolute;
             top: 0;
             bottom: 0;
             left: 0;
             right: 0;
-            width: 740px;
+            
+			color: #000;
         }
-	.textLayer > div {
+	    .textLayer > div {
             color: transparent;
             position: absolute;
             line-height:1.3;
             font-size: 16px
         }
         .canvas_container{
-            position:relative
+            margin: auto;
+			display: block;
        
         }
     </style>
@@ -95,15 +100,16 @@
             </div>
         </div>
         <div class="content">
-                <!--<iframe id='pdf' width="100%" height="100%" src="{{bill.url}}"></iframe>-->
+
                  <div class="container">
                      <div class="row">
                         <div class="span12 canvas_container">
-                            <canvas id="pdf_canvas" style="border:1px solid black;"></canvas>
-                            <div class="textLayer"></div>
+						   <iframe id='pdf' width="100%" height="90%" src="{{bill.url}}"></iframe>
+                <!--        <canvas id="pdf_canvas" style="border:1px solid black;"></canvas>
+                            <div class="textLayer"></div> -->
                         </div>
                      </div>
-                     <div class="row">
+                     <!--<div class="row">
                         <div class="span12">
                             <div class="pagination">
                                 <ul>
@@ -112,7 +118,7 @@
                                 <ul>
                             </div>
                         </div>
-                     </div>
+                     </div> -->
                  </div>
         </div>
     </div>
