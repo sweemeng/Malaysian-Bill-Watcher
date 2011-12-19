@@ -12,6 +12,14 @@
             padding-top: 60px;
             height:100%
         }
+		
+		iframe{
+		    margin:0;
+			padding:0;
+			height:100%;
+			width:100%;
+			border:none;
+		}
 		[ hidden ]{
 		    display:none;
 		}
@@ -33,8 +41,9 @@
         .canvas_container{
             margin: auto;
 			display: block;
-       
+            height:100%;
         }
+		
     </style>
     <script type="text/javascript">
         var page_no = 1;
@@ -102,9 +111,9 @@
         <div class="content">
 
                  <div class="container">
-                     <div class="row">
+                     <div class="row" height="100%" width="100%">
                         <div class="span12 canvas_container">
-						   <iframe id='pdf' width="100%" height="90%" src="{{bill.url}}"></iframe>
+						   <iframe id='pdf' src="/pdf/{{bill.url.split('/')[-1]}}"></iframe>
                 <!--        <canvas id="pdf_canvas" style="border:1px solid black;"></canvas>
                             <div class="textLayer"></div> -->
                         </div>
