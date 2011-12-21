@@ -136,3 +136,8 @@ def js_view(filename):
 @route('/pdf/<filename>')
 def js_view(filename):
     return static_file(filename,root='files/')
+
+@route('/html/<filename>/<page_no>/')
+def converted_pdf_view(filename,page_no):
+    return static_file(filename,root='html/%s' % filename)
+	
