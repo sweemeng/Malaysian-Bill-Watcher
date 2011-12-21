@@ -137,7 +137,10 @@ def js_view(filename):
 def js_view(filename):
     return static_file(filename,root='files/')
 
-@route('/html/<filename>/<page_no>/')
-def converted_pdf_view(filename,page_no):
-    return static_file(filename,root='html/%s' % filename)
+@route('/html/')
+def converted_pdf_view():
+    filename = request.GET.get('name')
+	page = request.GET.get('page')
+	root = 'html/%s/%s-%s' % (filename,filename,page)
+    return static_file(filename,root=root)
 	
