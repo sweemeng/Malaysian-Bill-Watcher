@@ -140,7 +140,8 @@ def js_view(filename):
 @route('/html/')
 def converted_pdf_view():
     filename = request.GET.get('name')
-	page = request.GET.get('page')
-	root = 'html/%s/%s-%s' % (filename,filename,page)
-    return static_file(filename,root=root)
-	
+    page = request.GET.get('page')
+    html_name = '%s-%s.html' % (filename,page)
+    root = 'html/%s/' % (filename)
+    return static_file(html_name,root=root)
+    
