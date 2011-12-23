@@ -45,6 +45,12 @@
 	    display: block;
             height:100%;
         }
+        #pdf_viewer{
+            position:relative;
+            display:block;
+        }
+        
+
 		
     </style>
     <script type="text/javascript">
@@ -74,6 +80,14 @@
              $('#prev').click(function(){
                  page_no = page_no - 1
                  viewer(page_no);
+             });
+             $('#pdf_viewer').load('/viewer/{{bill.url.split("/")[-1]}}/?page=1 div > div',function(){
+                 //img_tag = $('#pdf_viewer > div > img')[0]
+                 //old_img = img_tag.src.split('/');
+                 //console.log(old_img[old_img.length-1]);
+                 //img_name = old_img[old_img.length-1]
+                 //img_tag.src = '/viewer/{{bill.url.split("/")[-1]}}/'+img_name
+                 $('#pdf_viewer > div').css('position','relative');
              });
         });
         PDFJS.workerSrc = '/js/pdf.js';
@@ -115,7 +129,9 @@
                  <div class="container">
                      <div class="row" height="100%" width="100%">
                         <div class="span12">
-			   <iframe id='pdf' src="/pdf/{{bill.url.split('/')[-1]}}"></iframe>
+       <!--                   <iframe src="/viewer/{{bill.url.split('/')[-1]}}/?page=1"></iframe>-->
+                     <div id="pdf_viewer"></div> 
+       <!-- 		   <iframe id='pdf' src="/pdf/{{bill.url.split('/')[-1]}}"></iframe> -->
        <!--                <div class='canvas_container'>
                                 <canvas id="pdf_canvas" style="border:1px solid black;"></canvas>
                                 <div class="textLayer"></div> 
