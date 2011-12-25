@@ -129,23 +129,4 @@ def search():
     return dict(bill=bill_list)
 
 
-@route('/js/<filename>')
-def js_view(filename):
-    return static_file(filename,root='js/')
 
-@route('/pdf/<filename>')
-def js_view(filename):
-    return static_file(filename,root='files/')
-
-@route('/viewer/<filename>/')
-def converted_pdf_view(filename):
-    page = request.GET.get('page')
-    html_name = '%s-%s.html' % (filename,page)
-    root = 'html/%s/' % (filename)
-    return static_file(html_name,root=root)
-
-@route('/viewer/<root>/<filename>')
-def html_view(root,filename): 
-    print root
-    print filename
-    return static_file(filename,root='html/%s/'%(root))
