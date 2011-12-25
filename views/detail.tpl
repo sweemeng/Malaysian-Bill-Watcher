@@ -128,7 +128,7 @@
                  <div class="container">
                      <div class="row" height="100%" width="100%">
                         <div class="span12">
-                          <iframe src="/viewer/{{bill.url.split('/')[-1]}}/?page=1"></iframe>
+                          <iframe src="{{bill.url}}"></iframe>
                         </div>
                      </div>
                  </div>
