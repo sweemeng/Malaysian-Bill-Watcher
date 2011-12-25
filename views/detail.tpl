@@ -53,45 +53,7 @@
 
 		
     </style>
-    <script type="text/javascript">
-        var page_no = 1;
-        function viewer(page_no){
-            PDFJS.getPdf('/pdf/{{bill.url.split("/")[-1]}}',function (data){
-     	    var pdf = new PDFJS.PDFDoc(data);
-	
-	    var page = pdf.getPage(page_no);
-            //console.log(page);
-	    var scale = 1.5;
-	
-	    var canvas = document.getElementById("pdf_canvas");
-	    var context = canvas.getContext('2d');
-	    canvas.height = page.height * scale;
-	    canvas.width = page.width * scale;
-	//alert(pdf.numPages);
-	    page.startRendering(context,null,$('.textLayer')[0]);
-        });
-        }
-        $(function(){
-             viewer(page_no);
-             $('#next').click(function(){
-                 page_no = page_no + 1;
-                 viewer(page_no);
-             });
-             $('#prev').click(function(){
-                 page_no = page_no - 1
-                 viewer(page_no);
-             });
-             $('#pdf_viewer').load('/viewer/{{bill.url.split("/")[-1]}}/?page=1 div > div',function(){
-                 //img_tag = $('#pdf_viewer > div > img')[0]
-                 //old_img = img_tag.src.split('/');
-                 //console.log(old_img[old_img.length-1]);
-                 //img_name = old_img[old_img.length-1]
-                 //img_tag.src = '/viewer/{{bill.url.split("/")[-1]}}/'+img_name
-                 $('#pdf_viewer > div').css('position','relative');
-             });
-        });
-        PDFJS.workerSrc = '/js/pdf.js';
-    </script>
+
 </head>
 <body>
     <!--%include facebook_js-->
