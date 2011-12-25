@@ -125,29 +125,12 @@
             </div>
         </div>
         <div class="content">
-
                  <div class="container">
                      <div class="row" height="100%" width="100%">
                         <div class="span12">
                           <iframe src="/viewer/{{bill.url.split('/')[-1]}}/?page=1"></iframe>
-       <!--              <div id="pdf_viewer"></div>--> 
-       <!-- 		   <iframe id='pdf' src="/pdf/{{bill.url.split('/')[-1]}}"></iframe> -->
-       <!--                <div class='canvas_container'>
-                                <canvas id="pdf_canvas" style="border:1px solid black;"></canvas>
-                                <div class="textLayer"></div> 
-                            </div>-->
                         </div>
                      </div>
-        <!--         <div class="row">
-                        <div class="span12">
-                            <div class="pagination">
-                                <ul>
-                                    <li class="prev"><a class="prev" href="#">prev</a></li>
-                                    <li class="next"><a id="next" href="#">next</a></li>
-                                <ul>
-                            </div>
-                        </div>
-                     </div> -->
                  </div>
         </div>
     </div>
