@@ -129,8 +129,8 @@
                  <div class="container">
                      <div class="row" height="100%" width="100%">
                         <div class="span12">
-       <!--                   <iframe src="/viewer/{{bill.url.split('/')[-1]}}/?page=1"></iframe>-->
-                     <div id="pdf_viewer"></div> 
+                          <iframe src="/viewer/{{bill.url.split('/')[-1]}}/?page=1"></iframe>
+       <!--              <div id="pdf_viewer"></div>--> 
        <!-- 		   <iframe id='pdf' src="/pdf/{{bill.url.split('/')[-1]}}"></iframe> -->
        <!--                <div class='canvas_container'>
                                 <canvas id="pdf_canvas" style="border:1px solid black;"></canvas>
