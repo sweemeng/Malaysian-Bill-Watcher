@@ -6,7 +6,6 @@
    
     <link rel="stylesheet" href="http://twitter.github.com/bootstrap/1.4.0/bootstrap.min.css">
     <script src='http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js' type="text/javascript"></script>
-    <script src='/js/pdf.js' type='text/javascript'></script>
     <style type="text/css">
         body{
             padding-top: 60px;
