@@ -20,38 +20,7 @@
 	    width:100%;
 	    border:none;
 	}
-	[ hidden ]{
-	    display:none;
-	}
-        .textLayer{
-            position:absolute;
-            top: 0;
-            bottom: 0;
-            left: 0;
-            right: 0;
-	    color: #000;
-            border:1px solid black;
-        }
-	.textLayer > div {
-            color: transparent;
-            position: absolute;
-            line-height:1.5;
-            
-            font-size: 16px
-        }
-        .canvas_container{
-            position:absolute;
-            margin: auto;
-	    display: block;
-            height:100%;
-        }
-        #pdf_viewer{
-            position:relative;
-            display:block;
-        }
-        
-
-		
+	
     </style>
 
 </head>
