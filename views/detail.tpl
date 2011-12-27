@@ -64,7 +64,7 @@
                      <div class="row">
                         <div class="span12">
                           <!--<iframe src="{{bill.url}}"></iframe>-->
-                          <div id="pdfview">Problem viewing pdf, you can download the pdf here <a href="{{bill.url}}"></a></div>
+                          <div id="pdfview">Problem viewing pdf, you can download the pdf <a href="{{bill.url}}">here</a></div>
                         </div>
                      </div>
                  </div>
