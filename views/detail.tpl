@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="http://twitter.github.com/bootstrap/1.4.0/bootstrap.min.css">
     <script src='http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js' type="text/javascript"></script>
     <style type="text/css">
-        body{
+        html,body{
             padding-top: 60px;
             height:100%
         }
@@ -56,7 +56,7 @@
         </div>
         <div class="content">
                  <div class="container">
-                     <div class="row" height="100%" width="100%">
+                     <div class="row">
                         <div class="span12">
                           <iframe src="{{bill.url}}"></iframe>
                         </div>
