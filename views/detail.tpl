@@ -6,6 +6,7 @@
    
     <link rel="stylesheet" href="http://twitter.github.com/bootstrap/1.4.0/bootstrap.min.css">
     <script src='http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js' type="text/javascript"></script>
+    <script src='/js/pdfobject.js' type="text/javascript"></script>
     <style type="text/css">
         html,body{
             padding-top: 60px;
@@ -21,7 +22,11 @@
 	}
 	
     </style>
-
+    <script type="text/javascript">
+        $(function(){
+            var success = new PDFObject({url:"{{bill.url}}"}).embed("pdfview");
+        });
+    </script>
 </head>
 <body>
     <!--%include facebook_js-->
@@ -58,7 +63,8 @@
                  <div class="container">
                      <div class="row">
                         <div class="span12">
-                          <iframe src="{{bill.url}}"></iframe>
+                          <!--<iframe src="{{bill.url}}"></iframe>-->
+                          <div id="pdfview">Problem viewing pdf, you can download the pdf here <a href="{{bill.url}}"></a></div>
                         </div>
                      </div>
                  </div>

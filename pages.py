@@ -128,5 +128,6 @@ def search():
 
     return dict(bill=bill_list)
 
-
-
+@route('/js/<filename>')
+def js_view(filename):
+    return static_file(filename,root='js/')
