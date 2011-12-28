@@ -24,7 +24,10 @@
     </style>
     <script type="text/javascript">
         $(function(){
-            $("#raise_issue").modal({keyboard:true});
+            $("#raise_issue").modal({
+                keyboard:true,
+                backdrop:true
+            });
             $(".btn").click(function(event){
                 $("#raise_issue").modal('show');
             });
@@ -71,7 +74,7 @@
                 %end
                 <!--%include twitter_js-->
                 <!--%include facebook_div-->
-                <a class="btn" data-control-modal="raise_issue" data-backdrop="static">Raise Issue</a>
+                <a class="btn" data-control-modal="raise_issue">Raise Issue</a>
                 </p>
             </div>
         </div>
