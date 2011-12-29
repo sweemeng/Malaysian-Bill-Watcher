@@ -8,7 +8,7 @@
                             <li><a href="{{i[1]}}" id="{{i[0]}}">{{i[2]}}</a>
                         %end
                     %end
-                    <li><a href="#">About Us</a>
+                    <li><a href="/about/">About Us</a>
                 </ul>
                         %include search_box
                 </div>

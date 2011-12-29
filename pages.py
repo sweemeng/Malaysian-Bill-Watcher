@@ -128,4 +128,7 @@ def search():
 
     return dict(bill=bill_list)
 
-
+@route('/about/')
+@view('about-us')
+def about_us():
+    return {}
