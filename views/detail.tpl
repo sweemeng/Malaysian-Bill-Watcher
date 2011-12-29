@@ -9,7 +9,7 @@
     <script src="http://twitter.github.com/bootstrap/1.4.0/bootstrap-modal.js" type="text/javascript"></script>
     <style type="text/css">
         html,body{
-            padding-top: 60px;
+            padding-top: 25px;
             height:100%
         }
 		
