@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="http://twitter.github.com/bootstrap/1.4.0/bootstrap.min.css">
     <script src='http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js' type="text/javascript"></script>
     <script src="http://twitter.github.com/bootstrap/1.4.0/bootstrap-modal.js" type="text/javascript"></script>
+    <script src="http://twitter.github.com/bootstrap/1.4.0/bootstrap-scrollspy.js" type="text/javascript"></script>
     <style type="text/css">
         html,body{
             padding-top: 25px;
@@ -21,24 +22,7 @@
                 keyboard:true,
                 backdrop:true
             });
-            $(".btn").click(function(event){
-                $("#raise_issue").modal('show');
-            });
-            $("#bills").click(function(event){
-                event.preventDefault();
-                $("#commentview").hide();
-                $("#pdfview").show();
-                $("#bills").parent().attr("class","active");
-                $("#comment").parent().removeClass("active");
-            });
-            $("#comment").click(function(event){
-                event.preventDefault();
-                $("#pdfview").hide();
-                $("#commentview").show();
-                $("#comment").parent().attr("class","active");
-                $("#bills").parent().removeClass("active");
-            });
-            $("#bills").parent().attr("class","active");
+            $(".topbar").scrollSpy();
         });
     </script>
 </head>
@@ -57,7 +41,7 @@
         </div>
     </div>
 
-    %include header links=[("bills","#bills","Current Bill"),("comment","#comment","Comment On This Bill")]
+    %include header links=[("bills_link","#bills","Current Bill"),("comment_link","#comment","Comment On This Bill")]
     
     <div class="container-fluid">
         <div class="sidebar">
@@ -74,23 +58,44 @@
                 %end
                 <!--%include twitter_js-->
                 <!--%include facebook_div-->
-                <a class="btn" data-control-modal="raise_issue">Raise Issue</a>
                 </p>
-            </div>
+           </div>
         </div>
         <div class="content">
                  <div class="container">
+                     <section id="bills">
+                     <div class="page-header">
+                         <h1>
+                             {{bill.long_name}}
+                         </h1>
+                     </div>
                      <div class="row">
-                        <div class="span12">
+                        <div class="span12 columns">
                           <!--<iframe src="{{bill.url}}"></iframe>-->
+                          <p>
                           <div id="pdfview">
                               <object data="{{bill.url}}" type="application/pdf" width="100%" height="100%">
                                   Problem viewing pdf, you can download the pdf <a href="{{bill.url}}">here</a>
                               </object>
                           </div>
-                          <div id="commentview" class="hide">this is where comment goes</div>
+                          </p>
                         </div>
                      </div>
+                     </section>
+                     <section id="comment">
+                     <div class="page-header">
+                         <h1>
+                             "Comments"
+                         </h1>
+                     </div>
+                     <div class="row">
+                         <div class="span12 columns">
+                             <div id="commentview">
+                                 <p>this is where comment goes</p>
+                             </div>
+                         </div>
+                     </div>
+                     </section>
                  </div>
         </div>
     </div>
