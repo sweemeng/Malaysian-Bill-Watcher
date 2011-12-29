@@ -11,7 +11,7 @@
 </div>
 <body>
     %include facebook_js
-    %include header
+    %include header links=[]
     <div class="container-fluid">
         <div class="sidebar">
             <div class="well">

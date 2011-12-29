@@ -24,6 +24,21 @@
             $(".btn").click(function(event){
                 $("#raise_issue").modal('show');
             });
+            $("#bills").click(function(event){
+                event.preventDefault();
+                $("#commentview").hide();
+                $("#pdfview").show();
+                $("#bills").parent().attr("class","active");
+                $("#comment").parent().removeClass("active");
+            });
+            $("#comment").click(function(event){
+                event.preventDefault();
+                $("#pdfview").hide();
+                $("#commentview").show();
+                $("#comment").parent().attr("class","active");
+                $("#bills").parent().removeClass("active");
+            });
+            $("#bills").parent().attr("class","active");
         });
     </script>
 </head>
@@ -42,7 +57,7 @@
         </div>
     </div>
 
-    %include header
+    %include header links=[("bills","#bills","Current Bill"),("comment","#comment","Comment On This Bill")]
     
     <div class="container-fluid">
         <div class="sidebar">
@@ -73,6 +88,7 @@
                                   Problem viewing pdf, you can download the pdf <a href="{{bill.url}}">here</a>
                               </object>
                           </div>
+                          <div id="commentview" class="hide">this is where comment goes</div>
                         </div>
                      </div>
                  </div>
