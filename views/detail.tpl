@@ -13,14 +13,7 @@
             height:100%
         }
 		
-        iframe{
-	    margin:0;
-	    padding:0;
-	    height:100%;
-	    width:100%;
-	    border:none;
-	}
-	
+    	
     </style>
     <script type="text/javascript">
         $(function(){
