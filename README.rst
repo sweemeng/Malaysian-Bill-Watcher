@@ -32,6 +32,10 @@ requirement
 * CSS
   - bootstrap from twitter
 
+* Javascript
+  - bootstrap js
+  - jquery
+
 Future
 ======
 
