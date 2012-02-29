@@ -23,6 +23,7 @@ setup(
         'oauth2',
         'python-twitter',
         'simplejson',
-        'wsgiref'
+        'wsgiref',
+        'beautifulsoup',
         ],
 )
