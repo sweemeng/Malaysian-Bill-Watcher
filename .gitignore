@@ -7,4 +7,5 @@ eggs/
 parts/
 .installed.cfg
 billwatcher/billwatcher_malaysia.egg-info/
+var/
 
