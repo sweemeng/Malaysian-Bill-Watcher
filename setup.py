@@ -11,6 +11,7 @@ setup(
     package_dir = {'':'billwatcher'},
     install_requires = [
         'setuptools',
+        'pysqlite',
         'bottle',
         'pyes',
         'SQLAlchemy',
