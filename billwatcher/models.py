@@ -3,9 +3,10 @@ from sqlalchemy import Column
 from sqlalchemy import Integer,String,ForeignKey,Date,Sequence,DateTime
 from sqlalchemy import MetaData
 from sqlalchemy import create_engine
+from settings import DB_CONNECT
 
 metadata=MetaData()
-engine = create_engine('sqlite:///data.db')
+engine = create_engine(DB_CONNECT)
 
 bills = Table('bills',metadata,
     Column('id',Integer,Sequence('bills_id_seq'),primary_key=True),

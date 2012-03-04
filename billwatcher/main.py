@@ -6,6 +6,7 @@ from pages import search
 from pages import feed
 from json_api import single_item
 from json_api import all_item
+from settings import HOST,PORT
 
-run(host='localhost',port=8080)
+run(host=HOST,port=PORT)
 
