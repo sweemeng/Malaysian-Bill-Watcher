@@ -1,6 +1,10 @@
 <!DOCTYPE html>
-<html>
+<html itemscope itemtype="http://schema.org/Organization">
+
 <head>
+    <!-- Add the following three tags inside head -->
+    <meta itemprop="name" content="Malaysian Bill Watcher">
+    <meta itemprop="description" content="This is where we can see bills being debated in Malaysian Parliament">
     <title>{{bill.long_name}}</title>
     <link rel="alternate" type="application/rss+xml" title="RSS feed" href="/feeds/" />
    
@@ -64,7 +68,7 @@
                 %for i in revision[1:]:
                     <p><a href='/detail/{{i.id}}/'>i.year</a></p>
                 %end
-                <!--%include twitter_js-->
+                %include twitter_js
                 %include facebook_div
                 %include google_plus
                 </p>

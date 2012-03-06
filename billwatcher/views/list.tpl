@@ -1,6 +1,10 @@
 <!DOCTYPE html>
-<html>
+<html itemscope itemtype="http://schema.org/Organization">
+
 <head>
+    <!-- Add the following three tags inside head -->
+    <meta itemprop="name" content="Malaysian Bill Watcher">
+    <meta itemprop="description" content="This is where we can see bills being debated in Malaysian Parliament">
     <title>Malaysian Bill Watcher</title>
     <link rel="alternate" type="application/rss+xml" title="RSS feed" href="/feeds/" />
     <link rel="stylesheet" href="http://twitter.github.com/bootstrap/1.4.0/bootstrap.min.css">
