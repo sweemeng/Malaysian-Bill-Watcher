@@ -8,10 +8,16 @@
     <script src='http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js' type="text/javascript"></script>
     <script src="http://twitter.github.com/bootstrap/1.4.0/bootstrap-modal.js" type="text/javascript"></script>
     <script src="http://twitter.github.com/bootstrap/1.4.0/bootstrap-scrollspy.js" type="text/javascript"></script>
+    <script src="https://raw.github.com/pipwerks/PDFObject/master/pdfobject.min.js" type="text/javascript"></script>
     <style type="text/css">
         html,body{
             padding-top: 25px;
-            height:100%
+            height:100%;
+        }
+        #pdfview{
+            position:relative;
+            height:500px;
+            width:750px;
         }
 		
     	
@@ -23,6 +29,7 @@
                 backdrop:true
             });
             $(".topbar").scrollSpy();
+            var pdfview = new PDFObject({url:"{{bill.url}}"}).embed("pdfview");
         });
     </script>
 </head>
@@ -73,10 +80,12 @@
                         <div class="span12 columns">
                           <!--<iframe src="{{bill.url}}"></iframe>-->
                           <p>
-                          <div id="pdfview">
-                              <object data="{{bill.url}}" type="application/pdf" width="100%" height="100%">
+                          <div id="pdfview"> 
+                              <!--<object data="{{bill.url}}" type="application/pdf" width="100%" height="100%">
+                                  <embed width="100%" height="100%" type="application/pdf" src="{{bill.url}}">
                                   Problem viewing pdf, you can download the pdf <a href="{{bill.url}}">here</a>
-                              </object>
+                                  </embed>
+                              </object>-->
                           </div>
                           </p>
                         </div>
@@ -91,7 +100,7 @@
                      <div class="row">
                          <div class="span12 columns">
                              <div id="commentview">
-                                 <p>this is where comment goes</p>
+                                 <!--%include disqus-->
                              </div>
                          </div>
                      </div>

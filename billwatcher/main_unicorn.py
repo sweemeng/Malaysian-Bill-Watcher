@@ -6,7 +6,7 @@ from pages import search
 from pages import feed
 from json_api import single_item
 from json_api import all_item
-from settings import HOST
+from settings import PORT
 
-run(server='gunicorn',port=HOST)
+run(server='gunicorn',port=PORT)
 
