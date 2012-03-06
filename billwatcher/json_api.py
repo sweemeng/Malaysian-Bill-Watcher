@@ -1,54 +1,54 @@
-from bottle import route,request
-from models import engine,bills,bill_revs
-from sqlalchemy import select
 import datetime
+
+from bottle import route, request
+
+import models
 
 @route('/api/single/',method='GET')
 def single_item():
     id = request.GET.get('id')
-    return get_item(id)
+    session = models.DBSession()
+    bill = session.query(models.Bill).get(id)
+    data = serialize_bill(bill)
+    return data
 
 @route('/api/all/',method='GET')
 def all_item():
-    id_query = select([bills.c.id])
-    conn = engine.connect()
-    result = conn.execute(id_query)
-    data = []
-    
-    ids = result.fetchall()
-    for i in ids:
-        data.append(get_item(i['id']))
+    session = models.DBSession()
+    bills = session.query(models.Bill).all()
+    data = map(serialize_bill, bills)
     return {'data':data}
-    
-def get_item(id):
-    bill_query = select([bills],bills.c.id==id)
-    
-    data = {}
-    conn = engine.connect()
-    result = conn.execute(bill_query)
-    
-    bill = result.fetchone()
-    
-    for i in bill.keys():
-        data[i] = bill[i]
-    
-    rev_query = select([bill_revs],bill_revs.c.bill_id==id)
-    result = conn.execute(rev_query)
-    
-    revision = result.fetchall()
-    data['revision'] = []
-    
-    for rev in revision:
-        temp = {}
-        for key in rev.keys():
-            if type(rev[key]) == datetime.datetime:
-                temp[key] = rev[key].strftime('%d/%m/%Y %H:%M:%s')
-            elif type(rev[key]) == datetime.date:
-                temp[key] = rev[key].strftime('%d/%m/%Y') 
-            else:
-                temp[key] = rev[key]
 
-        data['revision'].append(temp) 
-    
+def serialize_bill(bill):
+    revision = map(serialize_revision, bill.bill_revs)
+    return {'id':bill.id,
+            'name':bill.name,
+            'long_name':bill.long_name,
+            'revision':revision}
+
+# This is more verbose and dummier
+def serialize_revision(rev):
+    data = {'id':rev.id,
+            'url':rev.url,
+            'status':rev.status,
+            'year':rev.year,
+            'read_by':rev.read_by,
+            'supported_by':rev.supported_by,
+            'bill_id':rev.bill_id}
+
+    try:
+        data['create_date'] = rev.create_date.strftime('%d/%m/%Y %H:%M:%s')
+    except AttributeError:
+        data['create_date'] = None
+
+    try:
+        data['update_date'] = rev.update_date.strftime('%d/%m/%Y %H:%M:%s')
+    except AttributeError:
+        data['update_date'] = None
+
+    try:
+        data['date_presented'] = rev.date_presented.strftime('%d/%m/%Y')
+    except AttributeError:
+        data['date_presented'] = None
     return data
 
