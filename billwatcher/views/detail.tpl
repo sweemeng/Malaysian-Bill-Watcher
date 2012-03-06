@@ -3,8 +3,8 @@
 
 <head>
     <!-- Add the following three tags inside head -->
-    <meta itemprop="name" content="Malaysian Bill Watcher">
-    <meta itemprop="description" content="This is where we can see bills being debated in Malaysian Parliament">
+    <meta itemprop="name" content="{{bill.long_name}}">
+    <meta itemprop="description" content="{{bill.long_name}}">
     <title>{{bill.long_name}}</title>
     <link rel="alternate" type="application/rss+xml" title="RSS feed" href="/feeds/" />
    
