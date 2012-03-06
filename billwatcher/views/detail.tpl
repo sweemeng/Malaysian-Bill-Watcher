@@ -32,9 +32,10 @@
             var pdfview = new PDFObject({url:"{{bill.url}}"}).embed("pdfview");
         });
     </script>
+    %include google_plus_js
 </head>
 <body>
-    <!--%include facebook_js-->
+   %include facebook_js
     <div id="raise_issue" class="modal hide fade">
         <div class="modal-header">
             <a href="#" class="close">x</a>
@@ -64,7 +65,8 @@
                     <p><a href='/detail/{{i.id}}/'>i.year</a></p>
                 %end
                 <!--%include twitter_js-->
-                <!--%include facebook_div-->
+                %include facebook_div
+                %include google_plus
                 </p>
            </div>
         </div>
