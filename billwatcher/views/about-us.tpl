@@ -84,9 +84,27 @@
                      <div class="row">
                          <div class="span12 columns">
                              <div id="contactview">
-                                 <p>Email: sinarproject@gmail.com</p>
-                                 <p>Twitter: @sinarproject</p>
+                                 <p>Email: <a href="mailto:sinarproject@gmail.com">sinarproject@gmail.com</a></p>
+                                 <p>Twitter: <a href="https://twitter.com/sinarproject" class="twitter-follow-button" data-show-count="false">Follow @sinarproject</a>
+                                 <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script></p>
                              </div>
+                         </div>
+                     </div>
+                     </section>
+                     <section id="opensource">
+                     <div class="page-header">
+                         <h2>
+                            This project is Open Sourced
+                         </h2>
+                     </div>
+                     <div class="row">
+                         <div class="span12 columns">
+                              <p>Our Code is in github you can help us by</p>
+                              <p><iframe src="http://markdotto.github.com/github-buttons/github-btn.html?user=sinar&repo=Malaysian-Bill-Watcher&type=watch"
+                                allowtransparency="true" frameborder="0" scrolling="0" width="62px" height="20px"></iframe>
+                                <iframe src="http://markdotto.github.com/github-buttons/github-btn.html?user=sinar&repo=Malaysian-Bill-Watcher&type=fork"
+                                allowtransparency="true" frameborder="0" scrolling="0" width="62px" height="20px"></iframe>
+                                </p>
                          </div>
                      </div>
                      </section>
