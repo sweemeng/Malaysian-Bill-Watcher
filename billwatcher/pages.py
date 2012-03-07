@@ -1,3 +1,4 @@
+import logging
 import datetime
 import cStringIO
 import pyes
@@ -11,6 +12,8 @@ from bottle import route, view, static_file, request, response
 import models
 import settings
 import utils
+
+log = logging.getLogger(__name__)
 
 @route('/detail/<rev_id>/')
 @view('detail')
@@ -85,7 +88,7 @@ def search():
         id = res['_id']
         bill = session.query(models.BillRevision).get(id)
         if not bill:
-            print id
+            log.info('bill_revs record with %r not found.' % id)
             continue
         bill_list.append(bill)
     return {'bill':bill_list}

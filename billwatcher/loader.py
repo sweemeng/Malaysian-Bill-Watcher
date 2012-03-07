@@ -1,3 +1,4 @@
+import logging
 import urllib2
 import datetime
 
@@ -5,6 +6,8 @@ from BeautifulSoup import BeautifulSoup
 
 import models
 import settings
+
+log = logging.getLogger(__name__)
 
 class Bill(object):
     def __init__(self, **kw):

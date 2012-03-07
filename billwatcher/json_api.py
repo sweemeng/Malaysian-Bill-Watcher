@@ -1,8 +1,11 @@
+import logging
 import datetime
 
 from bottle import route, request
 
 import models
+
+log = logging.getLogger(__name__)
 
 @route('/api/single/',method='GET')
 def single_item():
