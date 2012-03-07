@@ -13,8 +13,6 @@
             padding-top: 25px;
             height:100%
         }
-		
-    	
     </style>
     <script type="text/javascript">
         $(function(){
@@ -58,23 +56,17 @@
                  <div class="container">
                      <section id="who">
                      <div class="page-header">
-                         <h1>
-                             Who We Are
-                         </h1>
+                         <h1>Who We Are</h1>
                      </div>
                      <div class="row">
                         <div class="span12 columns">
-                          <p>
-                             We are a group of concerned Citizen that hope to see more transparency in govt. 
-                          </p>
+                          <p>We are a group of concerned Citizen that hope to see more transparency in govt.</p>
                         </div>
                      </div>
                      </section>
                      <section id="contacts">
                      <div class="page-header">
-                         <h2>
-                             Contacts
-                         </h2>
+                         <h2>Contacts</h2>
                      </div>
                      <div class="row">
                          <div class="span12 columns">

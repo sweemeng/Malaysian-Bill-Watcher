@@ -95,4 +95,5 @@ def load_data():
     session.commit()
 
 if __name__ == '__main__':
+    models.initdb()
     load_data()

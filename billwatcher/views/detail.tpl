@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>{{bill.long_name}}</title>
+    <title>{{rev.bill.long_name}}</title>
     <link rel="alternate" type="application/rss+xml" title="RSS feed" href="/feeds/" />
    
     <link rel="stylesheet" href="http://twitter.github.com/bootstrap/1.4.0/bootstrap.min.css">
@@ -47,14 +47,14 @@
         <div class="sidebar">
             <div class="well">
                 <h5>Detail</h5>
-                <p>Code: {{bill.name}}</p>
-                <p>Name: {{bill.long_name}}</p>
-                <p>Revision: {{bill.year}}</p>
-                <p>Status: {{bill.status}}</p>
+                <p>Code: {{rev.bill.name}}</p>
+                <p>Name: {{rev.bill.long_name}}</p>
+                <p>Revision: {{rev.year}}</p>
+                <p>Status: {{rev.status}}</p>
                 <p>
                 <p>Previous revision:</p>
-                %for i in revision[1:]:
-                    <p><a href='/detail/{{i.id}}/'>i.year</a></p>
+                %for r in rev.bill.bill_revs:
+                    <p><a href='/detail/{{r.id}}/'>{{r.year}}</a></p>
                 %end
                 <!--%include twitter_js-->
                 <!--%include facebook_div-->
@@ -66,16 +66,16 @@
                      <section id="bills">
                      <div class="page-header">
                          <h1>
-                             {{bill.long_name}}
+                             {{rev.bill.long_name}}
                          </h1>
                      </div>
                      <div class="row">
                         <div class="span12 columns">
-                          <!--<iframe src="{{bill.url}}"></iframe>-->
+                          <!--<iframe src="{{rev.url}}"></iframe>-->
                           <p>
-                          <div id="pdfview">
-                              <object data="{{bill.url}}" type="application/pdf" width="100%" height="100%">
-                                  Problem viewing pdf, you can download the pdf <a href="{{bill.url}}">here</a>
+                          <div id="pdfview" style="height:100%">
+                              <object data="{{rev.url}}" type="application/pdf" width="100%" height="100%">
+                                  Problem viewing pdf, you can download the pdf <a href="{{rev.url}}">here</a>
                               </object>
                           </div>
                           </p>

@@ -2,8 +2,6 @@ import urllib2
 import json
 import os
 
-
-
 def download(url):
     curdir = os.curdir
     file_path = os.path.join(curdir,'files') 

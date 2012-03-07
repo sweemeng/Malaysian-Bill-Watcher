@@ -69,6 +69,9 @@ def index():
         es.refresh('bill-index')
 
 def get_indexable_bills():
+    pass
+        
+def old_get_indexable_bills():
     revision = select([bill_revs,bills],bill_revs.c.bill_id==bills.c.id).apply_labels()
     conn = engine.connect()
     result = conn.execute(revision)

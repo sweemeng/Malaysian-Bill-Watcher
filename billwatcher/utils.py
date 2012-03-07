@@ -1,10 +1,10 @@
+# deprecated
 class Bill(object):
     pass
 
-
+# webhelpers package has it :)
 class Pagination(object):
-    def __init__(self,item_per_page,total_item,page_no=None):
-
+    def __init__(self, item_per_page, total_item, page_no=None):
         if page_no:
             self.page_no = int(page_no)
         else:
@@ -17,8 +17,6 @@ class Pagination(object):
         self.page_list = [i+1 for i in self.page_list]
         self.next_page = self.page_no + 1
         self.prev_page = self.page_no - 1
-             
-
 
 def get_keys(keys):
     split_keys = keys.split('_')
@@ -28,6 +26,7 @@ def get_keys(keys):
         keys = '_'.join(split_keys[1:])
     return keys
 
+# deprecated
 def get_bill(row):
     bill = Bill()
     for key in row.keys()[1:]:

@@ -1,7 +1,10 @@
-URL = 'http://localhost:8080/'
-ITEM_PER_PAGE = 5
+PORT = 8080
+HOST = "localhost"
 
 DB_CONNECT = "sqlite:///data.db"
 
-PORT = 8080
-HOST = "localhost"
+URL = 'http://localhost:8080/'
+
+ITEM_PER_PAGE = 5
+
+

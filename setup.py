@@ -16,8 +16,6 @@ setup(
         'pyes',
         'SQLAlchemy',
         'PyRSS2Gen',
-        'gevent',
-        'greenlet',
         'gunicorn',
         'httplib2',
         'ipython',
@@ -26,5 +24,6 @@ setup(
         'simplejson',
         'wsgiref',
         'beautifulsoup',
+        'nose',
         ],
 )

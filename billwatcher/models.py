@@ -39,7 +39,7 @@ class Bill(Mixin, Base):
     long_name = Column(String)
 
     bill_revs = relationship('BillRevision', backref='bill',
-                             order_by=desc('BillRevision.year'))
+                             order_by='desc(BillRevision.year)')
 
 class BillRevision(Mixin, Base):
     __tablename__ = 'bill_revs'
@@ -56,7 +56,3 @@ class BillRevision(Mixin, Base):
                                          ondelete='CASCADE'))
     create_date = Column(DateTime, default=datetime.datetime.now)
     update_date = Column(DateTime)
-
-    # bill = relationship('Bill', uselist=False, backref='bill_revs')
-
-initdb()

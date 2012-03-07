@@ -1,98 +1,72 @@
-from bottle import route,view,static_file,request,response
-from models import bills,bill_revs
-from models import engine
-from sqlalchemy import select
-from sqlalchemy.sql import and_,func
-import PyRSS2Gen
-import settings
-
 import datetime
 import cStringIO
 import pyes
+import PyRSS2Gen
 
+from sqlalchemy import select
+from sqlalchemy.sql import and_,func
+
+from bottle import route, view, static_file, request, response
+
+import models
+import settings
 import utils
-        
 
 @route('/detail/<rev_id>/')
 @view('detail')
 def detail(rev_id):
-    bls = select([bills,bill_revs],
-        and_(
-            bill_revs.c.id == rev_id,
-            bill_revs.c.bill_id==bills.c.id
-        )
-    ).apply_labels()
-
-    conn = engine.connect()
-    
-    result = conn.execute(bls)
-    bl = result.fetchone()
-    
-    bill = utils.get_bill(bl) 
-
-    revs = select([bill_revs],bill_revs.c.bill_id == bill.bill_id).\
-        order_by(bill_revs.c.year.desc())
-    
-    result = conn.execute(revs)
-    revision = result.fetchall()
-    
-    return dict(bill=bill,revision=revision)
+    session = models.DBSession()
+    rev = session.query(models.BillRevision).get(rev_id)
+    return {'rev':rev}
 
 @route('/')
 @view('list')
 def list_all():
     page_no = request.GET.get('page_no')
 
-    bl = select([bills,bill_revs],and_(
-        bills.c.id==bill_revs.c.bill_id,
-        )
-    ).order_by(bill_revs.c.update_date).apply_labels()
+    session = models.DBSession()
+    bills = (session.query(models.Bill)
+             .join((models.Bill.bill_revs,
+                    models.BillRevision))
+             .order_by(models.BillRevision.update_date)
+             .all())
 
-
-    conn = engine.connect()
-    result = conn.execute(bl)
-    bill_list = result.fetchall()
-    
-    bill = []
-
-    for item in bill_list:
-        bill.append(utils.get_bill(item))        
-
-    bill_total = len(bill_list)
-    pages = utils.Pagination(settings.ITEM_PER_PAGE,bill_total,page_no)
-    bill = bill[pages.first:pages.last]
-
-    return dict(bill=bill,pages=pages)
-    
+    pages = utils.Pagination(settings.ITEM_PER_PAGE,
+                             len(bills), page_no)
+    bills = bills[pages.first:pages.last]
+    return {'bills':bills,
+            'pages':pages}
 
 @route('/feeds/')
 def feed():
     prefix = '://'.join(request.urlparts[:2])
     title = 'Malaysian Bill Watcher'
-    link = prefix+'/'
-    description = '''
-        This is an app for Malaysian to see bill being passed by the Parliament
-    '''
+    link = prefix + '/'
+    description = 'This is an app for Malaysian to see bill being passed by the Parliament'
+
     lastBuildDate = datetime.datetime.utcnow()
     
-    li = []
-    bls = select([bills,bill_revs],bills.c.id==bill_revs.c.bill_id).\
-        order_by('update_date').apply_labels()
-    conn = engine.connect()
-    result = conn.execute(bls)
-    bill = result.fetchall()    
-    for i in bill:
-        i_bill = utils.get_bill(i)
-        i_title = i_bill.long_name
-        i_description = "year:%s \nstatus: %s" % (i_bill.year,i_bill.status)
-        i_link = prefix+'/detail/%s/' % (i_bill.id)
-        i_pubDate = i_bill.update_date
-        i_guid = PyRSS2Gen.Guid(i_link)
-        itm = PyRSS2Gen.RSSItem(title=i_title,description=i_description,
-            link=i_link,guid=i_guid,pubDate=i_pubDate)
-        li.append(itm)
-    rss = PyRSS2Gen.RSS2(title=title,link=link,description=description,
-        items = li)
+    session = models.DBSession()
+    bills = (session.query(models.Bill)
+             .join((models.Bill.bill_revs, models.BillRevision))
+             .order_by(models.BillRevision.update_date)
+             .all())
+
+    items = []
+    for bill in bills:
+        _rev = bill.bill_revs[0]
+        _title = bill.long_name
+        _description = "year:%s \nstatus: %s" % (_rev.year,
+                                                 _rev.status)
+        _link = prefix + '/detail/%s/' % (_rev.id)
+        _pubDate = _rev.update_date
+        _guid = PyRSS2Gen.Guid(_link)
+        item = PyRSS2Gen.RSSItem(title=_title, description=_description,
+                                 link=_link, guid=_guid, pubDate=_pubDate)
+        items.append(item)
+
+    rss = PyRSS2Gen.RSS2(title=title, link=link, description=description,
+                         items=items)
     output = cStringIO.StringIO()
     rss.write_xml(output)
     response.content_type = 'application/rss+xml'
@@ -106,27 +80,15 @@ def search():
     query = pyes.StringQuery(query_string)
     result = es.search(query=query)
     bill_list = []
-    conn = engine.connect()
+    session = models.DBSession()
     for res in result['hits']['hits']:
         id = res['_id']
-        bls = select([bills,bill_revs],
-            and_(
-                bill_revs.c.id == id,
-                bill_revs.c.bill_id==bills.c.id
-            )
-        ).apply_labels()
-
-        conn = engine.connect()
-    
-        result = conn.execute(bls)
-        bl = result.fetchone()
-        if not bl:
+        bill = session.query(models.BillRevision).get(id)
+        if not bill:
             print id
-            continue 
-        bill = utils.get_bill(bl) 
+            continue
         bill_list.append(bill)
-
-    return dict(bill=bill_list)
+    return {'bill':bill_list}
 
 @route('/about/')
 @view('about-us')
