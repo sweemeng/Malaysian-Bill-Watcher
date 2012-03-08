@@ -42,23 +42,33 @@ def detail(rev_id):
 @view('list')
 def list_all():
     page_no = request.GET.get('page_no')
+    conn = engine.connect()
 
-    bl = select([bills,bill_revs],and_(
-        bills.c.id==bill_revs.c.bill_id,
+    og_bl = select([bills,bill_revs],and_(
+        bills.c.id==bill_revs.c.bill_id,bill_revs.c.status!="Accepted"
         )
     ).order_by(desc(bill_revs.c.update_date)).apply_labels()
 
-
-    conn = engine.connect()
-    result = conn.execute(bl)
-    bill_list = result.fetchall()
+    result = conn.execute(og_bl)
+    ongoing_bill = result.fetchall()
     
     bill = []
 
-    for item in bill_list:
-        bill.append(utils.get_bill(item))        
+    for item in ongoing_bill:
+        bill.append(utils.get_bill(item))       
 
-    bill_total = len(bill_list)
+    ac_bl = select([bills,bill_revs],and_(
+        bills.c.id==bill_revs.c.bill_id,bill_revs.c.status=="Accepted"
+        )
+    ).order_by(desc(bill_revs.c.update_date)).apply_labels()
+
+    result = conn.execute(ac_bl)
+    accepted_bill = result.fetchall()
+    
+    for item in accepted_bill:
+        bill.append(utils.get_bill(item))       
+
+    bill_total = len(bill)
     pages = utils.Pagination(settings.ITEM_PER_PAGE,bill_total,page_no)
     bill = bill[pages.first:pages.last]
 
