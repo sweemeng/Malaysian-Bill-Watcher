@@ -2,7 +2,7 @@ from bottle import route,view,static_file,request,response
 from models import bills,bill_revs
 from models import engine
 from sqlalchemy import select
-from sqlalchemy.sql import and_,func
+from sqlalchemy.sql import and_,func,desc
 import PyRSS2Gen
 import settings
 
@@ -46,7 +46,7 @@ def list_all():
     bl = select([bills,bill_revs],and_(
         bills.c.id==bill_revs.c.bill_id,
         )
-    ).order_by(bill_revs.c.update_date).apply_labels()
+    ).order_by(desc(bill_revs.c.update_date)).apply_labels()
 
 
     conn = engine.connect()
@@ -77,7 +77,7 @@ def feed():
     
     li = []
     bls = select([bills,bill_revs],bills.c.id==bill_revs.c.bill_id).\
-        order_by('update_date').apply_labels()
+        order_by(desc('update_date')).apply_labels()
     conn = engine.connect()
     result = conn.execute(bls)
     bill = result.fetchall()    
