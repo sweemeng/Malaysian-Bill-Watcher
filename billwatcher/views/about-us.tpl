@@ -99,7 +99,7 @@
                      </div>
                      <div class="row">
                          <div class="span12 columns">
-                              <p>Our Code is in github you can help us by</p>
+                              <p>Our Code is in github you can help us by fork and contribute code, or report bug to us.</p>
                               <p><iframe src="http://markdotto.github.com/github-buttons/github-btn.html?user=sinar&repo=Malaysian-Bill-Watcher&type=watch"
                                 allowtransparency="true" frameborder="0" scrolling="0" width="62px" height="20px"></iframe>
                                 <iframe src="http://markdotto.github.com/github-buttons/github-btn.html?user=sinar&repo=Malaysian-Bill-Watcher&type=fork"
