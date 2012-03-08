@@ -30,6 +30,7 @@
             $(".topbar").scrollSpy();
         });
     </script>
+    %include google_analytics
 </head>
 <body>
     <!--%include facebook_js-->

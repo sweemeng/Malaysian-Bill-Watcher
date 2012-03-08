@@ -37,6 +37,7 @@
         });
     </script>
     %include google_plus_js
+    %include google_analytics
 </head>
 <body>
    %include facebook_js

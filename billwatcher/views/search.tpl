@@ -9,6 +9,7 @@
     <link rel="alternate" type="application/rss+xml" title="RSS feed" href="/feeds/" />
     <link rel="stylesheet" href="http://twitter.github.com/bootstrap/1.4.0/bootstrap.min.css">
     %include css
+    %include google_analytics
 </head>
 <body>
 <div id='header'>
