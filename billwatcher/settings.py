@@ -5,3 +5,8 @@ DB_CONNECT = "sqlite:///data.db"
 
 PORT = 8080
 HOST = "localhost"
+
+try:
+    from settings_local import *
+except:
+    pass
