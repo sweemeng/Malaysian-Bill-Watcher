@@ -47,7 +47,7 @@ def list_all():
     og_bl = select([bills,bill_revs],and_(
         bills.c.id==bill_revs.c.bill_id,bill_revs.c.status!="Accepted"
         )
-    ).order_by(desc(bill_revs.c.update_date)).apply_labels()
+    ).order_by(bill_revs.c.update_date).apply_labels()
 
     result = conn.execute(og_bl)
     ongoing_bill = result.fetchall()
@@ -60,7 +60,7 @@ def list_all():
     ac_bl = select([bills,bill_revs],and_(
         bills.c.id==bill_revs.c.bill_id,bill_revs.c.status=="Accepted"
         )
-    ).order_by(desc(bill_revs.c.update_date)).apply_labels()
+    ).order_by(bill_revs.c.update_date).apply_labels()
 
     result = conn.execute(ac_bl)
     accepted_bill = result.fetchall()
@@ -87,7 +87,7 @@ def feed():
     
     li = []
     bls = select([bills,bill_revs],bills.c.id==bill_revs.c.bill_id).\
-        order_by(desc('update_date')).apply_labels()
+        order_by('update_date').apply_labels()
     conn = engine.connect()
     result = conn.execute(bls)
     bill = result.fetchall()    
