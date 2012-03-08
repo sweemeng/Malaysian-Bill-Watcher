@@ -92,6 +92,7 @@
                                   Problem viewing pdf, you can download the pdf <a href="{{bill.url}}">here</a>
                                   </embed>
                               </object>-->
+                              <a href="{{bill.url}}">Can't view? Download it!!!</a>
                           </div>
                           </p>
                         </div>
