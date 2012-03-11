@@ -39,6 +39,4 @@ requirement
 Future
 ======
 
-* add disqus(don't know how to fit in the layout)
-* twitter notification
-
+* Multiple Language support

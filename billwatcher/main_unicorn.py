@@ -10,8 +10,5 @@ from pages import feed
 from json_api import single_item
 from json_api import all_item
 
-log.initlog()
 models.initdb()
-bottle.debug(True)
 bottle.run(server='gunicorn', port=settings.PORT)
-

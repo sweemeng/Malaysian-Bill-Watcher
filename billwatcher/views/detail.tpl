@@ -1,6 +1,9 @@
 <!DOCTYPE html>
-<html>
+<html itemscope itemtype="http://schema.org/Organization">
 <head>
+    <!-- Add the following three tags inside head -->
+    <meta itemprop="name" content="{{bill.long_name}}">
+    <meta itemprop="description" content="{{bill.long_name}}">
     <title>{{rev.bill.long_name}}</title>
     <link rel="alternate" type="application/rss+xml" title="RSS feed" href="/feeds/" />
    
@@ -8,10 +11,16 @@
     <script src='http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js' type="text/javascript"></script>
     <script src="http://twitter.github.com/bootstrap/1.4.0/bootstrap-modal.js" type="text/javascript"></script>
     <script src="http://twitter.github.com/bootstrap/1.4.0/bootstrap-scrollspy.js" type="text/javascript"></script>
+    <script src="https://raw.github.com/pipwerks/PDFObject/master/pdfobject.min.js" type="text/javascript"></script>
     <style type="text/css">
         html,body{
             padding-top: 25px;
-            height:100%
+            height:100%;
+        }
+        #pdfview{
+            position:relative;
+            height:500px;
+            width:750px;
         }
 		
     	
@@ -23,11 +32,14 @@
                 backdrop:true
             });
             $(".topbar").scrollSpy();
+            var pdfview = new PDFObject({url:"{{bill.url}}"}).embed("pdfview");
         });
     </script>
+    %include google_plus_js
+    %include google_analytics
 </head>
 <body>
-    <!--%include facebook_js-->
+   %include facebook_js
     <div id="raise_issue" class="modal hide fade">
         <div class="modal-header">
             <a href="#" class="close">x</a>
@@ -56,8 +68,9 @@
                 %for r in rev.bill.bill_revs:
                     <p><a href='/detail/{{r.id}}/'>{{r.year}}</a></p>
                 %end
-                <!--%include twitter_js-->
-                <!--%include facebook_div-->
+                %include twitter_js
+                %include facebook_div
+                %include google_plus
                 </p>
            </div>
         </div>
@@ -73,10 +86,13 @@
                         <div class="span12 columns">
                           <!--<iframe src="{{rev.url}}"></iframe>-->
                           <p>
-                          <div id="pdfview" style="height:100%">
-                              <object data="{{rev.url}}" type="application/pdf" width="100%" height="100%">
-                                  Problem viewing pdf, you can download the pdf <a href="{{rev.url}}">here</a>
-                              </object>
+                          <div id="pdfview"> 
+                              <!--<object data="{{bill.url}}" type="application/pdf" width="100%" height="100%">
+                                  <embed width="100%" height="100%" type="application/pdf" src="{{bill.url}}">
+                                  Problem viewing pdf, you can download the pdf <a href="{{bill.url}}">here</a>
+                                  </embed>
+                              </object>-->
+                              <a href="{{bill.url}}">Can't view? Download it!!!</a>
                           </div>
                           </p>
                         </div>
@@ -91,7 +107,7 @@
                      <div class="row">
                          <div class="span12 columns">
                              <div id="commentview">
-                                 <p>this is where comment goes</p>
+                                 <!--%include disqus-->
                              </div>
                          </div>
                      </div>
