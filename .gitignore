@@ -8,4 +8,4 @@ parts/
 .installed.cfg
 billwatcher/billwatcher_malaysia.egg-info/
 var/
-
+settings_local.py
