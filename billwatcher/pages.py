@@ -26,13 +26,16 @@ def detail(rev_id):
 @view('list')
 def list_all():
     page_no = request.GET.get('page_no')
-    conn = engine.connect()
+#    conn = engine.connect()
     session = models.DBSession()
-    bills = (session.query(models.Bill)
+    base_bills = (session.query(models.Bill)
              .join((models.Bill.bill_revs,
                     models.BillRevision))
-             .order_by(models.BillRevision.update_date)
-             .all())
+             .order_by(models.BillRevision.update_date))
+
+    bills = (base_bills.filter(models.BillRevision.status!="Accepted").all() +
+                base_bills.filter(models.BillRevision.status=="Accepted").all())
+
     pages = utils.Pagination(settings.ITEM_PER_PAGE,
                              len(bills), page_no)
     bills = bills[pages.first:pages.last]
