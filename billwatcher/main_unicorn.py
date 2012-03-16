@@ -1,6 +1,5 @@
 import bottle
 import settings
-import log
 import models
 from pages import detail
 from pages import list_all
