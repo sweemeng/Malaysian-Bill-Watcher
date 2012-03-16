@@ -2,8 +2,8 @@
 <html itemscope itemtype="http://schema.org/Organization">
 <head>
     <!-- Add the following three tags inside head -->
-    <meta itemprop="name" content="{{bill.long_name}}">
-    <meta itemprop="description" content="{{bill.long_name}}">
+    <meta itemprop="name" content="{{rev.bill.long_name}}">
+    <meta itemprop="description" content="{{rev.bill.long_name}}">
     <title>{{rev.bill.long_name}}</title>
     <link rel="alternate" type="application/rss+xml" title="RSS feed" href="/feeds/" />
    
@@ -32,7 +32,7 @@
                 backdrop:true
             });
             $(".topbar").scrollSpy();
-            var pdfview = new PDFObject({url:"{{bill.url}}"}).embed("pdfview");
+            var pdfview = new PDFObject({url:"{{rev.url}}"}).embed("pdfview");
         });
     </script>
     %include google_plus_js
@@ -87,12 +87,7 @@
                           <!--<iframe src="{{rev.url}}"></iframe>-->
                           <p>
                           <div id="pdfview"> 
-                              <!--<object data="{{bill.url}}" type="application/pdf" width="100%" height="100%">
-                                  <embed width="100%" height="100%" type="application/pdf" src="{{bill.url}}">
-                                  Problem viewing pdf, you can download the pdf <a href="{{bill.url}}">here</a>
-                                  </embed>
-                              </object>-->
-                              <a href="{{bill.url}}">Can't view? Download it!!!</a>
+                              <a href="{{rev.url}}">Can't view? Download it!!!</a>
                           </div>
                           </p>
                         </div>
