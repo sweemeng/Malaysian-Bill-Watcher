@@ -52,6 +52,7 @@
             <div class="well">
                 <h5>The Team</h5>
                 <p>programmer: sweemeng</p>
+                <p>programmer: clchow</p>
                 <p>
                 <!--%include twitter_js-->
                 <!--%include facebook_div-->
