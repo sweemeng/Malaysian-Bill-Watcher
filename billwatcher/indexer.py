@@ -1,9 +1,10 @@
 import pyes
 import os
-from models import bills,bill_revs,engine
+from models import *
 from sqlalchemy import select
 from downloader import download
 import utils
+import re
 
 def index():
     mapping = {
@@ -68,14 +69,29 @@ def index():
         es.index(i,'bill-index','bill-type')
         es.refresh('bill-index')
 
-def get_indexable_bills():
-    pass
+def extract_bills():
+    initdb()
+    session = DBSession()
+
+    revision = (session.query(BillRevision)
+                .join((BillRevision.bill,Bill)).all()
+                )
+    
+    for rev in revision:
+        temp = {}
+        rev_key = [ i for i in dir(rev) if not re.match('^_',i) ]
+        bill_key = [ i for i in dir(rev.bill) if not re.match('^_',i) ]
+        for key in rev_key:
+            if key != 'metadata':
+                temp[key] = getattr(rev,key)
+        for key in bill_key:
+            if key != 'metadata':
+                temp[key] = getattr(rev.bill,key)
+        yield temp
+
         
-def old_get_indexable_bills():
-    revision = select([bill_revs,bills],bill_revs.c.bill_id==bills.c.id).apply_labels()
-    conn = engine.connect()
-    result = conn.execute(revision)
-    data = result.fetchall()
+def get_indexable_bills():
+    data = extract_bills()
     for item in data:
         temp = {}
         for key in item.keys()[1:]:
