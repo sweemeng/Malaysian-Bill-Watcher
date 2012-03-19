@@ -29,9 +29,9 @@
                <div class="span12">
                %for bill in bills:
                    <div class="bill_item">
-                       <h5><a href="/detail/{{bill.id}}/">{{bill.long_name}}</a></h5>
-                        Revision: {{bill.bill_revs[0].year}}
-                        <br>Status  : {{bill.bill_revs[0].status}}</br>
+                       <h5><a href="/detail/{{bill.id}}/">{{bill.bill.long_name}}</a></h5>
+                        Revision: {{bill.year}}
+                        <br>Status  : {{bill.status}}</br>
                    </div>
                    <div class="separator"></div>
                %end

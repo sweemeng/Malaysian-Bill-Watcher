@@ -28,9 +28,7 @@ def list_all():
     page_no = request.GET.get('page_no')
 #    conn = engine.connect()
     session = models.DBSession()
-    base_bills = (session.query(models.Bill)
-             .join((models.Bill.bill_revs,
-                    models.BillRevision))
+    base_bills = (session.query(models.BillRevision)
              .order_by(models.BillRevision.update_date))
 
     bills = (base_bills.filter(models.BillRevision.status!="Accepted").all() +
