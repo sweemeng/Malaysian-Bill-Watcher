@@ -6,7 +6,7 @@ DB_CONNECT = "sqlite:///data.db"
 URL = 'http://billwatcher,sinarproject.org/'
 
 ITEM_PER_PAGE = 5
-PAGE_DISPLAYED = 10
+PAGE_DISPLAYED = 5
 
 # this is to override the variable from above
 try:
