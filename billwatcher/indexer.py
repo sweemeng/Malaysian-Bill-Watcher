@@ -122,10 +122,10 @@ def extract_individual_bills(rev_id):
     bill_key = [ i for i in dir(revision.bill) if not re.match('^_',i) ]
     for key in rev_key:
         if key != 'metadata' and key != 'bill':
-            temp[key] = getattr(rev,key)
+            temp[key] = getattr(revision,key)
     for key in bill_key:
         if key != 'metadata' and key!='id' and key!='bill_revs':
-            temp[key] = getattr(rev.bill,key)
+            temp[key] = getattr(revision.bill,key)
     return temp
 
 def get_individual_indexable_bills(rev_id):
