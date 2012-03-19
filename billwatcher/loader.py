@@ -15,7 +15,7 @@ class Bill(object):
             setattr(self, k, v)
 
 def load_page():
-    page = urllib2.urlopen('http://www.parlimen.gov.my/index.php?modload=document&uweb=dr&doc=bills&arkib=yes')
+    page = urllib2.urlopen('http://www.parlimen.gov.my/index.php?modload=document&uweb=dr&doc=bills&arkib=yes&lang=en')
     soup = BeautifulSoup(page)
     tables = soup.findAll('table', {'id':'mytable'})
     for table in tables:
