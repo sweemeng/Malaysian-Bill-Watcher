@@ -114,8 +114,7 @@ def extract_individual_bills(rev_id):
     initdb()
     session = DBSession()
 
-    revision = (session.query(BillRevision)
-                .join((BillRevision.bill,Bill)).get(rev_id)
+    revision = (session.query(BillRevision).get(rev_id)
                 )
     
     temp = {}
