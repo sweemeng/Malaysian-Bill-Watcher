@@ -50,6 +50,10 @@ def index():
         'bill_id':{
             'type':'integer',
             'store':'yes'
+        },
+        'id':{
+            'type':'integer',
+            'store':'yes'
         }
     }
 
@@ -82,10 +86,10 @@ def extract_bills():
         rev_key = [ i for i in dir(rev) if not re.match('^_',i) ]
         bill_key = [ i for i in dir(rev.bill) if not re.match('^_',i) ]
         for key in rev_key:
-            if key != 'metadata':
+            if key != 'metadata' and key != 'bill':
                 temp[key] = getattr(rev,key)
         for key in bill_key:
-            if key != 'metadata':
+            if key != 'metadata' and key!='id' and key!='bill_revs':
                 temp[key] = getattr(rev.bill,key)
         yield temp
 
@@ -94,19 +98,56 @@ def get_indexable_bills():
     data = extract_bills()
     for item in data:
         temp = {}
-        for key in item.keys()[1:]:
-            new_key = utils.get_keys(key)
-            
-            if new_key == 'url':
+        for key in item.keys():
+            if key == 'url':
                 full_path = download(item[key])
                 if not full_path:
                     continue
 
                 temp['document'] = pyes.file_to_attachment(full_path)
             else:
-                temp[new_key] = item[key]
-
+                temp[key] = item[key]
+        print '%s:%s' % (temp['id'],temp['long_name'])
         yield temp
+
+def extract_individual_bills(rev_id):
+    initdb()
+    session = DBSession()
+
+    revision = (session.query(BillRevision)
+                .join((BillRevision.bill,Bill)).get(rev_id)
+                )
+    
+    temp = {}
+    rev_key = [ i for i in dir(revision) if not re.match('^_',i) ]
+    bill_key = [ i for i in dir(revision.bill) if not re.match('^_',i) ]
+    for key in rev_key:
+        if key != 'metadata' and key != 'bill':
+            temp[key] = getattr(rev,key)
+    for key in bill_key:
+        if key != 'metadata' and key!='id' and key!='bill_revs':
+            temp[key] = getattr(rev.bill,key)
+    return temp
+
+def get_individual_indexable_bills(rev_id):
+    bill = extract_bills(rev_id)
+    temp = {}
+    for key in bill.keys():
+        if key == 'url':
+            full_path = download(bill[key])
+            if not full_path:
+                continue
+
+            temp['document'] = pyes.file_to_attachment(full_path)
+        else:
+            temp[key] = bill[key]
+    return temp
+
+def index_individual_bill(rev_id):
+    es = pyes.ES('localhost:9200')
+    bill = get_individual_indexable_bills(rev_id)
+    es.index(bill,'bill-index','bill-type')
+    es.refresh('bill-index')
 
 if __name__ == '__main__':
     index()
