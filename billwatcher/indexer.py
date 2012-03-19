@@ -130,7 +130,7 @@ def extract_individual_bills(rev_id):
     return temp
 
 def get_individual_indexable_bills(rev_id):
-    bill = extract_bills(rev_id)
+    bill = extract_individual_bills(rev_id)
     temp = {}
     for key in bill.keys():
         if key == 'url':
