@@ -79,19 +79,25 @@ def feed():
 @view('search')
 def search():
     es = pyes.ES('127.0.0.1:9200') 
+    page_no = request.GET.get('page_no')
     query_string = request.GET.get('query')
     query = pyes.StringQuery(query_string)
-    result = es.search(query=query)
+    result = es.search(query=query,search_fields="_all")
     bill_list = []
     session = models.DBSession()
     for res in result['hits']['hits']:
-        id = res['_id']
+        id = res['_source']['id']
         bill = session.query(models.BillRevision).get(id)
         if not bill:
             log.info('bill_revs record with %r not found.' % id)
             continue
+
         bill_list.append(bill)
-    return {'bill':bill_list}
+
+    pages = utils.Pagination(settings.ITEM_PER_PAGE,settings.PAGE_DISPLAYED,
+                             len(bill_list), page_no)
+    bill_list = bill_list[pages.first:pages.last]
+    return {'bill':bill_list,'query':query_string,'pages':pages}
 
 @route('/about/')
 @view('about-us')

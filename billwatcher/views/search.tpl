@@ -33,6 +33,32 @@
                     <div class="separator"></div>
                 %end
             %end
+            <div class='pagination' id='pages'>
+               <ul>
+                  %if pages.page_no != pages.page_list[0]:
+                      <li class="prev"><a href="/?page_no={{pages.page_list[0]}}&query={{query}}">First</a></li>
+                      <li class="prev"><a href='/?page_no={{pages.prev_page}}'>prev</a></li>
+                  %else:
+                      <li class="prev disabled"><a href="/?page_no={{pages.page_list[0]}}"&query={{query}}>First</a></li>
+                      <li class="prev disabled"><a href="#">prev</a></li>
+                  %end
+                  %for i in pages.active_list:
+                      %if i == pages.page_no:
+                          <li class="active"><a href="#">{{i}}</a></li>
+                      %else:
+                          <li><a href='/?page_no={{i}}'>{{i}}</a></li>
+                      %end
+                  %end
+                  %if pages.page_no != pages.page_list[-1]:
+                      <li class="next"><a href='/?page_no={{pages.next_page}}&query={{query}}'>next</a></li>
+                      <li class="next"><a href="/?page_no={{pages.page_list[-1]}}&query={{query}}">Last</a></li>
+                  %else:
+                      <li class="next disabled"><a href="#">next</a></li>
+                      <li class="next disabled"><a href="#">Last</a></li>
+                  %end
+               </ul>
+            </div>
+
         </div>
     </div>
 
