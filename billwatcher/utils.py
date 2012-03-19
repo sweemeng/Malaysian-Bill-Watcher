@@ -1,10 +1,6 @@
-# deprecated
-class Bill(object):
-    pass
-
 # webhelpers package has it :)
 class Pagination(object):
-    def __init__(self,item_per_page,total_item,page_no=None):
+    def __init__(self,item_per_page,pages_displayed,total_item,page_no=None):
         if page_no:
             self.page_no = int(page_no)
         else:
@@ -32,6 +28,26 @@ class Pagination(object):
             self.last = self.total_item
         else:
             self.last = self.page_no * self.item_per_page
+
+        half_page = pages_displayed / 2
+        start_active = self.page_no - half_page
+        end_active = self.page_no + half_page
+        last_pages = total_item - pages_displayed
+
+        if self.page_no in self.page_list[:pages_displayed]:
+            if start_active <= 1:
+                self.active_list = self.page_list[:pages_displayed]
+            else:
+                self.active_list = self.page_list[start_active:end_active]
+        elif self.page_no in self.page_list[last_pages:]:
+            if end_active >= len(self.page_list):
+                self.active_list = self.page_list[last_pages:]
+            else:
+                self.active_list = self.page_list[start_active:end_active]
+
+        else:
+            self.active_list = self.page_list[start_active:end_active]
+
 
 def get_keys(keys):
     split_keys = keys.split('_')

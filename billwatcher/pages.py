@@ -36,7 +36,7 @@ def list_all():
     bills = (base_bills.filter(models.BillRevision.status!="Accepted").all() +
                 base_bills.filter(models.BillRevision.status=="Accepted").all())
 
-    pages = utils.Pagination(settings.ITEM_PER_PAGE,
+    pages = utils.Pagination(settings.ITEM_PER_PAGE,settings.PAGE_DISPLAYED,
                              len(bills), page_no)
     bills = bills[pages.first:pages.last]
     return {'bills':bills,

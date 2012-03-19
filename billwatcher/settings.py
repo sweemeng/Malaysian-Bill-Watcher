@@ -3,9 +3,10 @@ HOST = "localhost"
 
 DB_CONNECT = "sqlite:///data.db"
 
-URL = 'http://localhost:8080/'
+URL = 'http://billwatcher,sinarproject.org/'
 
 ITEM_PER_PAGE = 5
+PAGE_DISPLAYED = 10
 
 # this is to override the variable from above
 try:
