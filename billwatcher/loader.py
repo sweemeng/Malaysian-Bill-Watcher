@@ -15,9 +15,16 @@ class Bill(object):
             setattr(self, k, v)
 
 def load_page():
-    page = urllib2.urlopen('http://www.parlimen.gov.my/index.php?modload=document&uweb=dr&doc=bills&lang=en#')
+    page = urllib2.urlopen('http://www.parlimen.gov.my/index.php?modload=document&uweb=dr&doc=bills&arkib=yes')
     soup = BeautifulSoup(page)
-    table = soup.find('table', {'id':'mytable'})
+    tables = soup.findAll('table', {'id':'mytable'})
+    for table in tables:
+        tbodies = table.findAll('tbody')
+        for tbody in tbodies:
+            for item in load_table(tbody):
+                yield item
+
+def load_table(table):
     tr = table.find('tr')
     key = ['name', 'year', 'long_name', 'status']
     translation = {'Dibentang Oleh':'read_by',
@@ -40,7 +47,8 @@ def load_page():
             s_tr = in_table.findAll('tr')
             for j in s_tr:
                 i_td = j.findAll('td')
-                result[translation[i_td[0].text]] = i_td[2].text
+                if i_td[2].text:
+                    result[translation[i_td[0].text]] = i_td[2].text
         else:
             t = td[3].text.splitlines()
             result[key[3]] = t[0]
