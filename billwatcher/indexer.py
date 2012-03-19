@@ -140,6 +140,7 @@ def get_individual_indexable_bills(rev_id):
             temp['document'] = pyes.file_to_attachment(full_path)
         else:
             temp[key] = bill[key]
+    print '%s:%s' % (temp['id'],temp['long_name'])
     return temp
 
 def index_individual_bill(rev_id):
