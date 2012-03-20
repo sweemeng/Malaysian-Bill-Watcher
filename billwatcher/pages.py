@@ -4,10 +4,7 @@ import cStringIO
 import pyes
 import PyRSS2Gen
 
-from sqlalchemy import select
-from sqlalchemy.sql import and_,func
-
-from bottle import route, view, static_file, request, response
+from bottle import route, view, request, response
 
 import models
 import settings
@@ -29,10 +26,23 @@ def list_all():
 #    conn = engine.connect()
     session = models.DBSession()
     base_bills = (session.query(models.BillRevision)
-             .order_by(models.BillRevision.update_date))
+             .order_by(models.BillRevision.year.desc()))
 
-    bills = (base_bills.filter(~models.BillRevision.status.in_(["Accepted","Withdrawn"])).all() +
-                base_bills.filter(models.BillRevision.status.in_(["Accepted","Withdrawn"])).all())
+    
+    ongoing_bill = ( base_bills
+            .filter(
+                ~models.BillRevision.status.in_(
+                    ["Accepted","Withdrawn"])
+                )
+            .all()
+        )
+    done_bill = ( base_bills
+            .filter(
+                models.BillRevision.status.in_(
+                    ["Accepted","Withdrawn"]))
+            .all()
+        )
+    bills = ( ongoing_bill + done_bill)
 
     pages = utils.Pagination(settings.ITEM_PER_PAGE,settings.PAGE_DISPLAYED,
                              len(bills), page_no)
