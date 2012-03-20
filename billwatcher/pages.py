@@ -31,8 +31,8 @@ def list_all():
     base_bills = (session.query(models.BillRevision)
              .order_by(models.BillRevision.update_date))
 
-    bills = (base_bills.filter(models.BillRevision.status!="Accepted").all() +
-                base_bills.filter(models.BillRevision.status=="Accepted").all())
+    bills = (base_bills.filter(~models.BillRevision.status.in_(["Accepted","Withdrawn"])).all() +
+                base_bills.filter(models.BillRevision.status.in_(["Accepted","Withdrawn"])).all())
 
     pages = utils.Pagination(settings.ITEM_PER_PAGE,settings.PAGE_DISPLAYED,
                              len(bills), page_no)

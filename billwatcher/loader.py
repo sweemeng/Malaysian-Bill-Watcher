@@ -19,9 +19,11 @@ def load_page():
     soup = BeautifulSoup(page)
     tables = soup.findAll('table', {'id':'mytable'})
     for table in tables:
-        tbodies = table.findAll('tbody')
-        for tbody in tbodies:
-            for item in load_table(tbody):
+        tbody = table.findAll('tbody')
+        if not tbody:
+            tbody = [table]
+        for tb in tbody:
+            for item in load_table(tb):
                 yield item
 
 def load_table(table):
@@ -29,7 +31,8 @@ def load_table(table):
     key = ['name', 'year', 'long_name', 'status']
     translation = {'Dibentang Oleh':'read_by',
                    'Disokong Oleh':'supported_by',
-                   'Dibentang Pada':'date_presented'}
+                   'Dibentang Pada':'date_presented',
+                   'Ditarik Balik ':'Withdrawn'}
     siblings = tr.findNextSiblings('tr')
     for i in siblings:
         td = i.findAll('td')
@@ -51,7 +54,10 @@ def load_table(table):
                     result[translation[i_td[0].text]] = i_td[2].text
         else:
             t = td[3].text.splitlines()
-            result[key[3]] = t[0]
+            if translation.get(t[0]):
+                result[key[3]] = translation[t[0]]
+            else:
+                result[key[3]] = t[0]
         # yield Bill(**result)
         yield result
 
@@ -101,7 +107,7 @@ def load_data():
                 message = 'Bills Updated: %s, year %s %s'
 
         if message:
-            url = settings.URL + 'detail/%d/' % (bill.id)
+            url = settings.URL + 'detail/%d/' % (rev.id)
             print message % (bill.long_name, rev.year, url)
     session.commit()
 
