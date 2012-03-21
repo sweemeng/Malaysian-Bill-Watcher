@@ -46,7 +46,7 @@
                       %if i == pages.page_no:
                           <li class="active"><a href="#">{{i}}</a></li>
                       %else:
-                          <li><a href='/?page_no={{i}}'>{{i}}</a></li>
+                          <li><a href='/search/?page_no={{i}}&query={{query}}'>{{i}}</a></li>
                       %end
                   %end
                   %if pages.page_no != pages.page_list[-1]:
