@@ -103,10 +103,14 @@ def search():
             continue
 
         bill_list.append(bill)
-
-    pages = utils.Pagination(settings.ITEM_PER_PAGE,settings.PAGE_DISPLAYED,
-                             len(bill_list), page_no)
-    bill_list = bill_list[pages.first:pages.last]
+    if bill_list:
+        pages = utils.Pagination(settings.ITEM_PER_PAGE,settings.PAGE_DISPLAYED,
+                                 len(bill_list), page_no)
+    else:
+        pages = None
+    if pages:
+        bill_list = bill_list[pages.first:pages.last]
+    
     return {'bill':bill_list,'query':query_string,'pages':pages}
 
 @route('/about/')

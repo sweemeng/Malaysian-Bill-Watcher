@@ -24,6 +24,7 @@
             </div>
         </div>
         <div class="content span9">
+            %if bill:
             %for i in bill:
                 %if i:
                     <div class="bill_item">
@@ -34,8 +35,12 @@
                     <div class="separator"></div>
                 %end
             %end
+            %else:
+                <p>No result in search</p>
+            %end
             <div class='pagination' id='pages'>
                <ul>
+                  %if bill:
                   %if pages.page_no != pages.page_list[0]:
                       <li class="prev"><a href="/search/?page_no={{pages.page_list[0]}}&query={{query}}">First</a></li>
                       <li class="prev"><a href='/search/?page_no={{pages.prev_page}}'>prev</a></li>
@@ -56,6 +61,8 @@
                   %else:
                       <li class="next disabled"><a href="#">next</a></li>
                       <li class="next disabled"><a href="#">Last</a></li>
+                  %end
+
                   %end
                </ul>
             </div>
