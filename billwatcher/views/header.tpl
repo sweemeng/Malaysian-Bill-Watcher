@@ -10,7 +10,7 @@
                     %end
                     <li><a href="/about/">About Us</a>
                 </ul>
-                        %include search_box
+                        %include search_box query=query
                 </div>
         </div>
     </div>

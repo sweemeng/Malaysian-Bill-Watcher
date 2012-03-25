@@ -34,7 +34,7 @@
 <body>
    %include facebook_js
 
-    %include header links=[("bills_link","#bills","Current Bill"),("comment_link","#comment","Comment On This Bill")]
+    %include header links=[("bills_link","#bills","Current Bill"),("comment_link","#comment","Comment On This Bill")],query=""
     
     <div class="container-fluid">
         <div class="sidebar span3">

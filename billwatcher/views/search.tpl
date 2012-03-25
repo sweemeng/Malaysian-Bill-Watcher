@@ -16,7 +16,7 @@
 <div id='header'>
 </div>
 <body>
-    %include header links=[]
+    %include header links=[],query=query
     <div class="container-fluid">
         <div class="sidebar span3">
             <div class="well">
