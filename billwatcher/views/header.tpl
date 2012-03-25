@@ -1,5 +1,5 @@
-    <div class="topbar" data-scrollspy="scrollspy">
-        <div class="topbar-inner">
+    <div class="navbar" data-scrollspy="scrollspy">
+        <div class="navbar-inner">
             <div class="container-fluid">
                 <a class="brand" href="/">Malaysian Bill Watcher</a>
                 <ul class="nav">

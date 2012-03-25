@@ -7,7 +7,8 @@
     <meta itemprop="description" content="This is where we can see bills being debated in Malaysian Parliament">
     <title>Malaysian Bill Watcher</title>
     <link rel="alternate" type="application/rss+xml" title="RSS feed" href="/feeds/" />
-    <link rel="stylesheet" href="http://twitter.github.com/bootstrap/1.4.0/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/bootstrap.css">
+    <link rel="stylesheet" href="/css/bootstrap-responsive.css">
     %include css
     %include google_analytics
 </head>
@@ -18,12 +19,12 @@
     %include facebook_js
     %include header links=[]
     <div class="container-fluid">
-        <div class="sidebar">
+        <div class="sidebar span3">
             <div class="well">
                 <p>This project is created to create an awareness of law enacted, by your MP's</p>
             </div>
         </div>
-        <div class="content">
+        <div class="content span9">
         <div class="container">
            <div class="row">
                <div class="span12">

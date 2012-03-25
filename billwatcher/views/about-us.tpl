@@ -9,46 +9,23 @@
     <title>About Us</title>
     <link rel="alternate" type="application/rss+xml" title="RSS feed" href="/feeds/" />
    
-    <link rel="stylesheet" href="http://twitter.github.com/bootstrap/1.4.0/bootstrap.min.css">
-    <script src='http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js' type="text/javascript"></script>
-    <script src="http://twitter.github.com/bootstrap/1.4.0/bootstrap-modal.js" type="text/javascript"></script>
-    <script src="http://twitter.github.com/bootstrap/1.4.0/bootstrap-scrollspy.js" type="text/javascript"></script>
-    <style type="text/css">
-        html,body{
-            padding-top: 25px;
-            height:100%
-        }
-    </style>
+    <link rel="stylesheet" href="/css/bootstrap.css">
+    <script src='/js/jquery.js' type="text/javascript"></script>
+    <script src="/js/bootstrap-modal.js" type="text/javascript"></script>
+    <script src="/js/bootstrap-scrollspy.js" type="text/javascript"></script>
     <script type="text/javascript">
-        $(function(){
-            $("#raise_issue").modal({
-                keyboard:true,
-                backdrop:true
-            });
-            $(".topbar").scrollSpy();
+            $(".navbar").scrollspy();
         });
     </script>
     %include google_analytics
 </head>
 <body>
     <!--%include facebook_js-->
-    <div id="raise_issue" class="modal hide fade">
-        <div class="modal-header">
-            <a href="#" class="close">x</a>
-            <h3>Raise Issue to your MP</h3>
-        </div>
-        <div class="modal-body">
-            <p>The form will goes here</p>
-        </div>
-        <div class="modal-footer">
-            <a href="#" class="btn danger">Send</a>
-        </div>
-    </div>
 
     %include header links=[("who_link","#who","Who We Are"),("contact_link","#contacts","Contacts")]
     
     <div class="container-fluid">
-        <div class="sidebar">
+        <div class="sidebar span3">
             <div class="well">
                 <h5>The Team</h5>
                 <p>programmer: sweemeng</p>
@@ -59,7 +36,7 @@
                 </p>
            </div>
         </div>
-        <div class="content">
+        <div class="content span12">
                  <div class="container">
                      <section id="who">
                      <div class="page-header">

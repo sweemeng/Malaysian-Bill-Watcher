@@ -1,7 +1,4 @@
     <style type="text/css">
-        body{
-            padding-top: 60px;
-        }
         .separator{
             height: 1px;
             background: #A6A6A6;
