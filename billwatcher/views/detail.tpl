@@ -40,15 +40,21 @@
         <div class="sidebar span3">
             <div class="well">
                 <h5>Detail</h5>
-                <p>Code: {{rev.bill.name}}</p>
-                <p>Name: {{rev.bill.long_name}}</p>
-                <p>Revision: {{rev.year}}</p>
-                <p>Status: {{rev.status}}</p>
                 <p>
-                <p>Previous revision:</p>
-                %for r in rev.bill.bill_revs:
-                    <p><a href='/detail/{{r.id}}/'>{{r.year}}</a></p>
-                %end
+                <dl class="dl-horizontal">
+                <dt>Code:</dt><dd> {{rev.bill.name}}</dd>
+                <dt>Name:</dt><dd> {{rev.bill.long_name}}</dd>
+                <dt>Revision:</dt><dd> {{rev.year}}</dd>
+                <dt>Status:</dt><dd> {{rev.status}}</dd>
+                </dl>
+                </p>
+                <p>
+                <dl>
+                    <dt>Previous revision:</dt>
+                    %for r in rev.bill.bill_revs:
+                        <dd><a href='/detail/{{r.id}}/'>{{r.year}}</a></dd>
+                    %end
+                </dl>
                 %include twitter_js
                 %include facebook_div
                 %include google_plus

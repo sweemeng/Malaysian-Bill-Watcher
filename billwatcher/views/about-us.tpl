@@ -28,8 +28,11 @@
         <div class="sidebar span3">
             <div class="well">
                 <h5>The Team</h5>
-                <p>programmer: sweemeng</p>
-                <p>programmer: cheeleong</p>
+                <dl>
+                    <dt>Developer</dt>
+                    <dd>programmer: sweemeng</dd>
+                    <dd>programmer: cheeleong</dd>
+                </dl>
                 <p>
                 <!--%include twitter_js-->
                 <!--%include facebook_div-->
