@@ -1,10 +1,10 @@
 from bottle import static_file,route
 
 
-@route('/js/<path:filepath>')
+@route('/js/<filepath:path>')
 def js_views(filepath):
-    pass
+    return static_file(filepath,root='js/')
 
-@route('/css/<path:filepath>')
+@route('/css/<filepath:path>')
 def css_views(filepath):
-    pass
+    return static_file(filepath,root='css/')
