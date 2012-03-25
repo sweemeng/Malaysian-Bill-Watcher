@@ -41,7 +41,7 @@
             <div class="well">
                 <h5>Detail</h5>
                 <p>
-                <dl class="dl-horizontal">
+                <dl>
                 <dt>Code:</dt><dd> {{rev.bill.name}}</dd>
                 <dt>Name:</dt><dd> {{rev.bill.long_name}}</dd>
                 <dt>Revision:</dt><dd> {{rev.year}}</dd>
