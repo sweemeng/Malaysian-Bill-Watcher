@@ -6,6 +6,7 @@ from BeautifulSoup import BeautifulSoup
 
 import models
 import settings
+import indexer
 
 log = logging.getLogger(__name__)
 
@@ -108,6 +109,7 @@ def load_data():
 
         if message:
             url = settings.URL + 'detail/%d/' % (rev.id)
+            indexer.index_single(rev.id)
             print message % (bill.long_name, rev.year, url)
     session.commit()
 
