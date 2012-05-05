@@ -66,7 +66,7 @@ def feed():
              .all())
 
     items = []
-    for bill in bills[99::-1]:
+    for bill in bills[-1:-101:-1]:
         _rev = bill.bill_revs[0]
         _title = bill.long_name
         _description = "year: %s\n" \
