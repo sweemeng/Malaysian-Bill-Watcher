@@ -66,11 +66,18 @@ def feed():
              .all())
 
     items = []
-    for bill in bills:
+    for bill in bills[-1:-101:-1]:
         _rev = bill.bill_revs[0]
         _title = bill.long_name
-        _description = "year:%s \nstatus: %s" % (_rev.year,
-                                                 _rev.status)
+        _description = "year: %s\n" \
+		"status: %s\n" \
+		"url: %s\n" \
+		"name: %s\n" \
+		"read_by: %s\n" \
+		"supported_by: %s\n" \
+		"date_presented: %s" % \
+		(_rev.year, _rev.status, _rev.url, bill.name, _rev.read_by,
+			_rev.supported_by, _rev.date_presented)
         _link = prefix + '/detail/%s/' % (_rev.id)
         _pubDate = _rev.update_date
         _guid = PyRSS2Gen.Guid(_link)
