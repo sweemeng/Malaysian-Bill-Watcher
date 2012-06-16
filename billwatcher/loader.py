@@ -111,7 +111,7 @@ def load_data():
             url = settings.URL + 'detail/%d/' % (rev.id)
             indexer.index_single(rev.id)
             print message % (bill.long_name, rev.year, url)
-    session.commit()
+        session.commit()
 
 if __name__ == '__main__':
     models.initdb()
