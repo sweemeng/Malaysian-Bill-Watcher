@@ -58,7 +58,7 @@
                      <div class="row">
                          <div class="span12 columns">
                              <div id="contactview">
-                                 <p>Email: <a href="mailto:sinarproject@gmail.com">sinarproject@gmail.com</a></p>
+                                 <p>Email: <a href="mailto:info@sinarproject.com">info@sinarproject.com</a></p>
                                  <p>Twitter: <a href="https://twitter.com/sinarproject" class="twitter-follow-button" data-show-count="false">Follow @sinarproject</a>
                                  <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script></p>
                              </div>
