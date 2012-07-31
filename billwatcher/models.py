@@ -65,7 +65,7 @@ class Language(Mixin,Base):
 
 # I don't like to use name, but name is the essentially the key, 
 # using this for now.
-class Translation(Mixin,Base):
+class BillTranslation(Mixin,Base):
     __tablename__ = 'translation'
     id = Column(Integer,autoincrement=True,primary_key=True)
     lang_id = Column(Integer,ForeignKey('language.id',
@@ -73,5 +73,18 @@ class Translation(Mixin,Base):
                                         ondelete='CASCADE'))
     name = Column(String)
     bill_id = Column(Integer,ForeignKey('bill.id',
+                                            onupdate='CASCADE',
+                                            ondelete='CASCADE'))
+
+
+class BillRevisionTranslation(Mixin,Base):
+    __tablename__ = 'translation'
+    id = Column(Integer,autoincrement=True,primary_key=True)
+    lang_id = Column(Integer,ForeignKey('language.id',
+                                        onupdate='CASCADE',
+                                        ondelete='CASCADE'))
+    name = Column(String)
+    year = Column(Integer)
+    revs_id = Column(Integer,ForeignKey('bill_revs.id',
                                             onupdate='CASCADE',
                                             ondelete='CASCADE'))
