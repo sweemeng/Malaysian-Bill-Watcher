@@ -59,7 +59,7 @@ class BillRevision(Mixin, Base):
     update_date = Column(DateTime)
 
 
-class LanguageType(Mixin,Base):
+class Language(Mixin,Base):
     __tablename__ = 'language'
     id = Column(Integer,autoincrement=True,primary_key=True)
     name = Column(String)
@@ -73,3 +73,6 @@ class Translation(Mixin,Base):
                                         onupdate='CASCADE',
                                         ondelete='CASCADE'))
     name = Column(String)
+    bill_id = Column(Integer,ForeignKey('bill.id',
+                                            onupdate='CASCADE',
+                                            ondelete='CASCADE'))
