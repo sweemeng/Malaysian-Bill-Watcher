@@ -37,6 +37,7 @@ class Bill(Mixin, Base):
     id = Column(Integer, autoincrement=True, primary_key=True)
     name = Column(String)
     long_name = Column(String)
+    language = Column(String)
 
     bill_revs = relationship('BillRevision', backref='bill',
                              order_by='desc(BillRevision.year)')
@@ -56,3 +57,19 @@ class BillRevision(Mixin, Base):
                                          ondelete='CASCADE'))
     create_date = Column(DateTime, default=datetime.datetime.now)
     update_date = Column(DateTime)
+
+
+class LanguageType(Mixin,Base):
+    __tablename__ = 'language'
+    id = Column(Integer,autoincrement=True,primary_key=True)
+    name = Column(String)
+
+# I don't like to use name, but name is the essentially the key, 
+# using this for now.
+class Translation(Mixin,Base):
+    __tablename__ = 'translation'
+    id = Column(Integer,autoincrement=True,primary_key=True)
+    lang_id = Column(Integer,ForeignKey('language.id',
+                                        onupdate='CASCADE',
+                                        ondelete='CASCADE'))
+    name = Column(String)
