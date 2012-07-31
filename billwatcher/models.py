@@ -37,7 +37,6 @@ class Bill(Mixin, Base):
     id = Column(Integer, autoincrement=True, primary_key=True)
     name = Column(String)
     long_name = Column(String)
-    language = Column(String)
 
     bill_revs = relationship('BillRevision', backref='bill',
                              order_by='desc(BillRevision.year)')
