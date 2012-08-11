@@ -20,7 +20,7 @@ def migrate_revisions():
     for rev in revs:
         translate = models.BillRevisionTranslation(
                 lang_id=en.id,
-                name=rev.bill.name
+                name=rev.bill.name,
                 rev_id=rev.id
             )
         session.add(translate)
