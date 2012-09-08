@@ -22,7 +22,7 @@
 <body>
     <!--%include facebook_js-->
 
-    %include header links=[("who_link","#who","Who We Are"),("contact_link","#contacts","Contacts")]
+    %include header links=[("who_link","#who","Who We Are"),("contact_link","#contacts","Contacts")],query=""
     
     <div class="container-fluid">
         <div class="sidebar span3">
@@ -32,6 +32,7 @@
                     <dt>Developer</dt>
                     <dd>programmer: sweemeng</dd>
                     <dd>programmer: cheeleong</dd>
+                    <dd>programmer: sweety piggy</dd>
                 </dl>
                 <p>
                 <!--%include twitter_js-->
@@ -73,12 +74,9 @@
                      </div>
                      <div class="row">
                          <div class="span12 columns">
-                              <p>Our Code is in github you can help us by fork and contribute code, or report bug to us.</p>
-                              <p><iframe src="http://markdotto.github.com/github-buttons/github-btn.html?user=sinar&repo=Malaysian-Bill-Watcher&type=watch"
-                                allowtransparency="true" frameborder="0" scrolling="0" width="62px" height="20px"></iframe>
-                                <iframe src="http://markdotto.github.com/github-buttons/github-btn.html?user=sinar&repo=Malaysian-Bill-Watcher&type=fork"
-                                allowtransparency="true" frameborder="0" scrolling="0" width="62px" height="20px"></iframe>
-                                </p>
+                              <p>Our Code is in github you can help us by fork and contribute code, or report bug to us. </p>
+                              <p><a href="https://github.com/sweemeng/Malaysian-Bill-Watcher">https://github.com/sweemeng/Malaysian-Bill-Watcher</a></p>
+                              <p><a href="https://github.com/sinar/Malaysian-Bill-Watcher">https://github.com/sinar/Malaysian-Bill-Watcher</a></p>
                          </div>
                      </div>
                      </section>

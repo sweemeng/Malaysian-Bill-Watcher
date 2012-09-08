@@ -43,7 +43,7 @@ def list_all():
             .all()
         )
     bills = ( ongoing_bill + done_bill)
-
+ 
     pages = utils.Pagination(settings.ITEM_PER_PAGE,settings.PAGE_DISPLAYED,
                              len(bills), page_no)
     bills = bills[pages.first:pages.last]
