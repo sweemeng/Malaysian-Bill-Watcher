@@ -38,19 +38,22 @@ class BaseLoader(object):
         )
         self.session.add(bill)
         self.session.flush()
+        return bill
     
-    def write_revision(self, url, status, year, read_by=None, supported_by=None, date_presented=None):
+    def write_revision(self, bill_id, url, status, year, read_by=None, supported_by=None, date_presented=None):
         revision = models.BillRevision(
             url=url,
             status=status,
             year=year,
             read_by=read_by,
+            bill_id=bill_id,
             supported_by=supported_by,
             date_presented=date_presented,
             update_date=datetime.datetime.now()
         )
         self.session.add(revision)
         self.session.flush()
+        return revision
     
     def index_entry(self, revision_id):
         self.indexer.inder_single(revision_id)
