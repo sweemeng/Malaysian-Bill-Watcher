@@ -2,9 +2,12 @@ import requests
 from xml.etree import ElementTree
 
 
+
 class BillsLoader(object):
-    def __init__(self):
-        self.url = "http://www.parlimen.gov.my/bills-dewan-rakyat.html?&uweb=dr&lang=bm&arkib=yes&ajx=1"
+    def __init__(self, language):
+        if language not in ["bm", "en"]:
+            raise Exception("Language Not supported")
+        self.url = "http://www.parlimen.gov.my/bills-dewan-rakyat.html?&uweb=dr&lang=%s&arkib=yes&ajx=1" % language
         self.raws = requests.get(self.url)
         self.bills = []
     
