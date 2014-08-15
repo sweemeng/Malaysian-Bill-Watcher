@@ -1,6 +1,8 @@
 Malaysian Bill Watcher
 ======================
 
+DEPRECATED: Go to https://github.com/Sinar/BillWatcher-2.0
+
 This is the source code for the Malaysian Bill Watcher. 
 
 The goal of this app is to notify bills that is being debated/recently passed bills
